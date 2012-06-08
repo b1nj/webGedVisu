@@ -1,7 +1,7 @@
 www/ged/
 www/stats/
 .settings/
-.project/
+.project
 *.pyc
 *.pyo
 Thumbs.db
