@@ -1,0 +1,164 @@
+Le format d'une ligne d'informations GEDCOM
+
+On peut rencontrer dans un fichier GEDCOM quatre formats de ligne différents.
+Pour décrire les informations qui sont regroupées dans une structure et n'ont pas de relations avec d'autres informations du fichier, on trouvera des lignes dont la syntaxe sera:
+
+    Format 1
+    {niveau} espace {identificateur}
+    ou
+    Format 2
+    {niveau} espace {identificateur} espace {informations}
+
+    ... et pour les informations qui doivent être mises en relation avec d'autres qui sont placées à un autre endroit dans le fichier, on trouvera:
+
+    Format 3
+    {niveau} espace @{référence}@ espace {identificateur}
+    ou
+    Format 4
+    {niveau} espace {identificateur} espace @{référence}@
+
+    Légende:
+        {niveau} : c'est une valeur numérique de 0 à n qui permet de structurer les informations. Les informations du niveau n sont toujours associées au niveau n-1 qui précéde. Il est très important de respecter l'ordre dans lequel les informations d'un fichier GEDCOM doivent être classées.
+        {identificateur} : les identificateurs sont des mots-clés de 3 ou 4 caractères du langage GEDCOM qui caractérisent les informations fournies, comme INDI pour individu, MARR pour mariage, FAM pour famille, etc (voir la liste des identificateurs ci-dessous)
+        @{référence}@ : les références sont les étiquettes qui permettent d'établir des relations entre des informations. Ces références sont des suites de chiffres et/ou de lettres quelconques toujours délimitées par un caractère @ au début et à la fin. Sur une ligne d'un fichier GEDCOM, une référence citée avant un identificateur marque l'emplacement d'une information (c'est une adresse). Une référence citée après un identificateur permet d'établir une relation avec une information définie par l'adresse correspondante (c'est un pointeur). C'est l'existence d'une ligne comportant une adresse et d'une ou de plusieurs lignes qui contiennent un pointeur sur cette adresse qui matérialise une(des) relation(s). Dans un fichier GEDCOM, la référence utilisée dans chaque "ligne adresse" doit être unique: on ne peut pas retrouver la même référence utilisée comme adresse dans deux lignes différentes, mais plusieurs pointeurs (donc plusieurs "lignes pointeurs") peuvent renvoyer à cette "ligne adresse".
+        {informations} : ce sont les données généalogiques qui peuvent être codées dans un format spécifique (dates), sous forme de texte libre (notes) ou qui sont des constantes pré-définies dans le langage (M ou F pour indiquer le sexe, par exemple).
+
+Décoder les informations d'un fichier GEDCOM
+
+Tout fichier GEDCOM débute obligatoirement par un entête (identificateur HEAD) et se termine obligatoirement par une marque de fin (identificateur TRLR). Entre l'entête et la marque de fin, on trouvera principalement les types d'informations suivants:
+
+    les informations relatives aux individus (identificateur INDI)
+    les informations relatives aux familles (identificateur FAM)
+    les notes (identificateur NOTE)
+    les sources (identificateur SOUR)
+
+
+    ABBR {abbreviation} : titre abrégé, description abrégée ou nom abrégé.
+    ADDR {address} : adresse postale d'un individu, de l'auteur d'un fichier, d'une entreprise, d'une école, etc
+    ADR1 {address1} : première ligne d'une adresse
+    ADR2 {address2} : deuxième ligne d'une adresse
+    ADOP {adoption} : création du lien enfant-parent quand il n'existe pas de lien biologique.
+    AFN {AFN} : numéro unique et permanent du fichier Ancestral File qui contient les informations relatives à l'individu
+    AGE {age} : âge de l'individu au moment de l'événement ou âge qui figure dans le document.
+    AGNC {agency} : institution ou individu responsable ou décisionnaire
+    ALIA {alias} : indicateur qui associe des informations différentes sur une personne.
+    ANCE {ancestors} : ancêtres d'un individu
+    ANCI {ances_interest} : indique un intérêt à rechercher des informations complémentaires sur les ancêtres d'un individu (voir DESI)
+    ANUL {annulment} : déclaration de nullité d'un mariage (comme s'il n'avait pas eu lieu)
+    ASSO {associates} : indicateur qui relie des amis, des voisins, des parents ou d'autres personnes à un individu
+    AUTH {author} : nom de la personne qui a relevé les informations ou qui a constitué le fichier
+    BAPL {baptism-LDS} : baptême de l'Eglise des Mormons (à partir de l'âge de huit ans)
+    BAPM {baptism}: baptême (non Mormon, voir aussi BAPL et CHR)
+    BARM {bar_mitzvah} : cérémonie juive qui a lieu pour les garçons à l'âge de 13 ans
+    BASM {bas_mitzvah}: cérémonie juive qui a lieu pour les filles à l'âge de 13 ans, aussi appelée "Bat Mitzvah."
+    BIRT {birth} : naissance
+    BLES {blessing} : bénédiction religieuse
+    BLOB {binary_object} : ensemble de données utilisé par un système multimédia qui gére des données binaires qui représentent des images, du son et de la vidéo.
+    BURI {burial} : sépulture
+    CALN {call_number} : numéro dans un répertoire qui sert à identifier une pièce dans une collection.
+    CAST {caste} : rang ou statut d'un individu dans une société, selon des critères raciaux ou religieux, des critères de richesse ou autres
+    CAUS {cause} : description de la cause de l'événement ou du fait associé, cause du décès par exemple.
+    CENS {census} : recensement de population
+    CHAN {change} : correction ou modification; en relation avec une DATE qui indique quand le changement est survenu.
+    CHAR {character} : indique le jeu de caractères utilisé pour l'écriture des informations dans le fichier.
+    CHIL {child} : enfant naturel ou adopté
+    CHR {christening} : baptême religieux (non Mormon) d'un enfant.
+    CHRA {adult_christening} : baptême religieux (non Mormon) d'une personne adulte.
+    CITY {city} : ville ou village
+    CONC {concatenation} : indicateur de continuation des informations qui précédent. Ces informations doivent être mises à la suite de celles qui précédent sans espace ni retour au début de ligne. La coupure avec les informations précédentes doit être faite au milieu d'un champ et non pas sur un espace (l'espace est un délimiteur GEDCOM).
+    CONF {confirmation} : confirmation - cérémonie religieuse (non Mormon) par laquelle un individu acquiert la qualité de membre à part entière de son Eglise.
+    CONL {confirmation_l} : confirmation (cérémonie religieuse par laquelle un individu devient membre de l'Eglise des Mormons)
+    CONT {continued} : indicateur de continuation des informations qui précédent, après un retour à la ligne.
+    COPR {copyright} : protection des informations contre la reproduction et la diffusion.
+    CORP {corporate} : nom d'une entreprise, d'une institution ou autre.
+    CREM {cremation} : incinération du corps d'un individu décédé.
+    CTRY {country} : nom ou code du pays
+    DATA {data} : informations stockées automatiquement.
+    DATE {date} : date d'un événement au format prévu pour les dates
+    DEAT {death} : décès
+    DESC {descendants} : descendance d'un individu
+    DESI {descendant_int} : indique un intérêt à rechercher des descendants de l'individu (voir aussi ANCI)
+    DEST {destination} : système ou programme destinataire des données.
+    DIV {divorce} : dissolution du mariage
+    DIVF {divorce_filed} : dossier de divorce d'un époux
+    DSCR {phy_description} : caractères physiques de description d'une personne, d'un lieu ou d'une chose
+    EDUC {education} : niveau d'instruction
+    EMIG {emigration} : départ de son pays avec l'intention de résider ailleurs.
+    ENDL {endowment} : dotation (sacrement de l'Eglise des Mormons reçu par un individu dans un temple).
+    ENGA {engagement} : fiancailles
+    EVEN {event} : événement intéressant à propos d'un individu, d'un groupe ou d'une organisation
+    FAM {family} : association d'un homme, d'une femme et de leurs enfants selon la loi ou les coutumes, ou famille créée par la naissance d'un enfant d'un père et d'une mère biologiques.
+    FAMC {family_child} : indique la famille à laquelle un enfant appartient
+    FAMF {family_file} : nom d'un fichier de familles de l'Eglise des Mormons
+    FAMS {family_spouse} : indique la famille dans laquelle l'individu est l'un des conjoints
+    FCOM {first_communion} : cérémonie religieuse de première communion
+    FILE {file} : unité de conservation d'informations classées pouvant être référencées.
+    FORM {format} : nom donné à un format dans lequel des informations peuvent être transcrites
+    GEDC {gedcom} : information sur l'utilisation de la norme GEDCOM dans un fichier.
+    GIVN {given_name} : prénom
+    GRAD {graduation} : diplôme ou certificat
+    HEAD {header} : identification des informations du fichier GEDCOM
+    HUSB {husband} : individu marié ou père
+    IDNO {ident_number} : numéro d'identification d'une personne dans un fichier, une source ou un système externe
+    IMMI {immigration} : arrivée dans un nouveau lieu avec intention d'y résider
+    INDI {individual} : une personne
+    LANG {language} : langage utilisé dans le fichier
+    LEGA {legatee} : légataire
+    MARB {marriage_bann} : publication des bans de mariage
+    MARC {marr_contract} : contrat de mariage
+    MARL {marr_license} : autorisation légale de mariage
+    MARR {marriage} : création d'une famille
+    MARS {marr_settlement} : convention, contrat avant mariage
+    MEDI {media} : information sur le support des données stockées
+    NAME {name} : mot ou ensemble de mots utilisés pour l'identification d'un individu, d'un titre, etc. Il faut utiliser plusieurs lignes NAME pour les personnes qui ont des noms multiples.
+    NATI {nationality} : nationalité d'une personne
+    NATU {naturalization} : obtention de la nationalité
+    NCHI {children_count} : nombre d'enfants du parent (tous mariages confondus) s'il s'agit d'un individu ou de la famille s'il s'agit d'une famille.
+    NICK {nickname} : surnom
+    NMR {marriage_count} : nombre de mariages de la personne
+    NOTE {note} : informations complémentaires ajoutées pour la compréhension des données
+    NPFX {name_prefix} : texte ou titre qui apparait avant le nom d'une personne (Docteur, Général, Monseigneur...)
+    NSFX {name_suffix} : texte qui apparait après le nom (Junior ou fils, par exemple)
+    OBJE {object} : référence aux données utilisées comme description (généralement un enregistrement audio, une photo ou une vidéo)
+    OCCU {occupation} : profession
+    ORDI {ordinance} : sacrement religieux en général
+    ORDN {ordination} : ordination religieuse
+    PAGE {page} : numéro ou description de l'endroit où l'information se trouve dans un ouvrage référencé
+    PEDI {pedigree} : Information relative à l'individu dans un tableau d'ascendance.
+    PHON {phone} : numéro de téléphone
+    PLAC {place} : lieu de l'événement
+    POST {postal_code} : code postal
+    PROB {probate} : validation d'un testament
+    PROP {property} : biens et possessions
+    PUBL {publication} : date et lieu de publication d'un ouvrage
+    QUAY {quality_of-data} : degré de confiance à accorder à une information
+    REFN {reference} : description ou numéro d'identification d'un fichier ou de tout autre objet pouvant être référencé
+    RELA {relationship} : valeur du lien dans le contexte
+    RELI {religion} : religion
+    REPO {repository} : établissement ou personne dépositaire de l'information
+    RESI {residence} : domicile
+    RESN {restriction} : indicateur d'accès restreint ou interdit à une information
+    RETI {retirement} : retraite
+    RFN {rec_file_number} : numéro permanent affecté à un enregistrement pour l'identifier de manière unique dans un fichier
+    RIN {rec_id_number} : numéro affecté à un enregistrement automatiquement par un système émetteur qui est utilisé pour identifier cet enregistrement dans les résultats produits par un système récepteur
+    ROLE {role} : rôle joué par un individu dans un événement
+    SEX {sex} : sexe
+    SLGC {sealing_child} : scellement d'un enfant à ses parents (cérémonie de l'Eglise des Mormons)
+    SLGS {sealing_spouse} : scellement d'un mari et d'une femme (cérémonie de l'Eglise des Mormons)
+    SOUR {source} : document d'origine ou source initiale de l'information
+    SPFX {surn_prefix} : partie d'un nom de famille qui n'est pas indexée
+    SSN {soc_sec_number} : numéro de sécurité sociale
+    STAE {state} : état (division géographique ou juridictionnelle)
+    STAT {status} : état (condition)
+    SUBM {submitter} : individu ou organisation qui fournit les données généalogiques
+    SUBN {submission} : ensemble de données à traiter
+    SURN {surname} : nom de famille
+    TEMP {temple} : nom ou code d'identification d'un temple de l'Eglise des Mormons
+    TEXT {text} : texte exact provenant d'un document original
+    TIME {time} : heures (entre 0 et 24), minutes et secondes séparées par les deux points (:). Secondes et centièmes de secondes sont optionnels.
+    TITL {title} : description d'un ouvrage, comme le titre d'un livre; titre de noblesse ou titre honorifique pour un individu
+    TRLR {trailer} : marque de fin d'un fichier GEDCOM
+    TYPE {type} : définition complémentaire de l'identificateur précédent.
+    VERS {version} : indique la version d'un produit, d'un composant ou d'un ouvrage utilisé ou référencé
+    WIFE {wife} : épouse
+    WILL {will} : testament (voir aussi PROB)

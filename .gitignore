@@ -1,0 +1,12 @@
+www/ged/
+www/stats/
+.settings/
+.project/
+*.pyc
+*.pyo
+Thumbs.db
+.ssh/
+cgi-bin/
+.bash_logout
+.bash_profile
+.bashrc
