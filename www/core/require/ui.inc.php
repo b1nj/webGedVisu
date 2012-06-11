@@ -6,7 +6,7 @@ GLOBAL $fichiersGed, $MODULES;
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo MODULE ? $MODULES[MODULE]['titre'] : _('Accueil') ?> - <?php echo TITRE ?></title>
+    <title><?php echo MODULE ? $MODULES[MODULE]['titre'] : 'Accueil' ?> - <?php echo TITRE ?></title>
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <link type="text/css" href="<?php echo URL ?>/css/style.css" rel="stylesheet">
     <?php echo $head ?>
@@ -51,7 +51,7 @@ GLOBAL $fichiersGed, $MODULES;
     <section>
         <article>
             <header>
-                <h1><?php echo MODULE ? $MODULES[MODULE]['titre'] : _('Accueil') ?></h1>
+                <h1><?php echo MODULE ? $MODULES[MODULE]['titre'] : 'Accueil' ?></h1>
             </header>    
 <?php
 }
