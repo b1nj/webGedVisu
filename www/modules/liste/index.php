@@ -1,6 +1,8 @@
 <?php
 define('ROOT', dirname(dirname(__DIR__)));
+define('MODULE', 'liste');
 require ROOT.'/core/require/commun.php';
+
 head();
 ?>
 <table>

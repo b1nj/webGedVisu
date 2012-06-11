@@ -4,16 +4,21 @@ require(ROOT.'/core/require/functions.php');
 require(ROOT.'/core/require/parametres.php');
 require(ROOT.'/core/require/ui.inc.php');
 if (CACHE) {
-    require(ROOT.'/core/classes/gedcom.class.php'); // Obligatoire a cause de la mise en session de l'instance Gedcom
+    // Mettre avant session_start a cause de la mise en session de l'instance Gedcom
+    require(ROOT.'/core/classes/gedcom.class.php'); 
 }
 session_start();
+
+if (!defined('MODULE')) {
+    define('MODULE', false);
+}
 
 /*****************************************************************
 * Gestion du fichier Gedcom
 ******************************************************************/
 $load =false;
 // Récupération de la liste des fichier ged
-if (!$fichiersGed = glob(ROOT.'/ged/*.ged')) {
+if (!$fichiersGed = glob(ROOT.'/ged/*.{GED,ged}', GLOB_BRACE)) {
     echo 'Aucun fichier gedcom dans le repertoire "ged"';
     exit();
 }
@@ -41,7 +46,6 @@ if (CACHE and !$load and isset($_SESSION['GEDCOM'])) {
 }
 if (!isset($gedcom) or $load) {
     $gedcom = new Core\Classes\Gedcom($_SESSION['WVG']['FICHIER']);
-    echo 'chargement';
 }
 if (CACHE) {
     function session($gedcom) {
@@ -51,27 +55,20 @@ if (CACHE) {
 }
 
 /*****************************************************************
-* Gestion des visualisations
+* Routages
 ******************************************************************/
-// Récupération de la liste des modules
+// Récupération de la liste des modules installés
 if (!$modules = glob(ROOT.'/modules/*/parametres.php')) {
-    echo 'Aucun module d\'installé';
+    echo _("Aucun module installé.");
     exit();
 }
-$visus = array();
+$MODULES = array();
 foreach ($modules as $key => $module) {
     require ($module);
-    $visus = $visus + $visualisations;
 }
-// Visualisation par defaut
-if (!isset($_SESSION['WVG']['VISU'])) {
-    $_SESSION['WVG']['VISU'] = $visus[0];
-}
-// récupération de la visualisation selectionnée
-if (isset($_GET['visu']) and array_key_exists($_GET['visu'], $visus)) {
-    $_SESSION['WVG']['VISU'] = $visus[$_GET['visu']];
-    // redirection
-    redirect(URL.'/modules/'.$_SESSION['WVG']['VISU']['module'].'/'.$_SESSION['WVG']['VISU']['url']);
+// Redirection vers le module selectionné
+if (isset($_GET['module']) and array_key_exists($_GET['module'], $MODULES)) {
+    redirect(URL.'/modules/'.$MODULES[$_GET['module']]['module'].'/'.$MODULES[$_GET['module']]['url']);
 }
 
 ?>

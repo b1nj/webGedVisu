@@ -1,5 +1,6 @@
 <?php
 define('ROOT', dirname(dirname(__DIR__)));
+define('MODULE', 'googleorgchart');
 require ROOT.'/core/require/commun.php';
 
 $orgChart = new Modules\GoogleOrgChart\orgChart($gedcom);

@@ -60,8 +60,7 @@ abstract class Parseur {
      */
     public function isValidGedcomFichier()
     {
-        return (($this->fichierContenu[0] == '0 HEAD')
-             && ($this->fichierContenu[count($this->fichierContenu) - 1] == '0 TRLR'))
+        return (($this->fichierContenu[0] == '0 HEAD')  && ($this->fichierContenu[count($this->fichierContenu) - 1] == '0 TRLR'))
         ? true : false;
     }
 

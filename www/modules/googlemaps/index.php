@@ -1,5 +1,6 @@
 <?php
 define('ROOT', dirname(dirname(__DIR__)));
+define('MODULE', 'googlemaps');
 require ROOT.'/core/require/commun.php';
 
 

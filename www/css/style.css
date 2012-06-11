@@ -2,65 +2,99 @@ header, section, article, nav, footer, aside, menu, hgroup, figure,
 figcaption {
 	display:block;
 }
+p {
+	font-size: .8em;
+	color: #494424;
+}
 body {
 	background : #ece9d8;
 	font-family:  Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
 	font-size: 100%;
 }
-header h1 {
-	color: #d0c99f;
-	margin-left: 20px;
+header#page {
 	position: absolute;
-	top: -22px;
-	left: 20px;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 37px;
 }
+	header#page h1 {
+		color: #ded8bb;
+		margin-left: 20px;
+		position: absolute;
+		bottom: -5px;
+		right: 30px;
+		margin: 0;
+		padding:0;
+	}
+	header#page nav {
+		position: absolute;
+		bottom: 0px;
+		left: 90px;
+		z-index: 1000000;
+		width: 700px;
+	}
+		header#page nav ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+			header#page nav li {
+				display: inline-block;
+				position: relative;
+				margin-right: 20px;
+			}
+				header#page nav .onglet {
+					background: #494424;
+					color: white;
+					display: inline-block;
+					padding: 10px 20px;
+					text-decoration: none;
+				}
+				header#page nav li:hover .onglet {
+					background: #e1dcc2;
+					color: #494424;
+				}
+				header#page nav form {
+					position: absolute;
+					top: 41px;
+					left: 0;
+					background: #e1dcc2;
+					border: 1px solid #dcd7b9;
+					border-radius: 0 0 10px 10px;
+					padding: 10px;
+					display: none;
+				}
+				header#page nav li:hover form {
+					display: block;
+				}
 section {
 	margin: 10px;
-	margin-top: 30px;
+	margin-top: 37px;
 	padding: 10px;
 	border: 1px solid #dcd7b9;
 	border-radius: 10px;
 	background : white;
 	min-height: 300px;
 }
-section header nav {
-	position: absolute;
-	top: -23px;
-	left: 250px;
-	z-index: 1000000;
-	width: 700px;
-}
-	section header nav ul {
-		list-style-type: none;
+	section:after {
+	  content: ""; 
+	  display: block;
+	  clear: both;
 	}
-	section header nav li {
-		display: inline-block;
-		position: relative;
+	section header h1 {
+		position:static;
+		color: #494424;
 	}
-	section header nav .onglet {
-		background: #494424;
-		color: white;
-		display: inline-block;
-		padding: 10px;
-	}
-		section header nav form {
-			position: absolute;
-			top: 38px;
-			left: 0;
-			background: #e1dcc2;
-			border: 1px solid #dcd7b9;
-			border-radius: 0 0 10px 10px;
-			padding: 10px;
-			display: none;
-		}
-		section header nav li:hover form {
-			display: block;
-		}
-section header h1 {
-	position:static;
-	color: #494424;
+	
+	
+	
+	
+.accueil {
+	width: 250px;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+	border: 1px dotted #ece9d8;
 }
-p {
-	font-size: .8em;
-	color: #494424;
-}
+

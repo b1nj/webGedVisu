@@ -1,14 +1,16 @@
 <?php
 define('ROOT', dirname(dirname(__DIR__)));
-require ROOT.'/core/require/commun.php';
-
-
 if (!isset($_GET['type']) or !in_array($_GET['type'],array('spacetree', 'sunburst'))) {
     $type = 'sunburst';
 }
 else {
     $type = $_GET['type'];
 }
+define('MODULE', 'infovistoolkit_'.$type);
+require ROOT.'/core/require/commun.php';
+
+
+
 $arbre = new Modules\InfoVisToolkit\Arbre($gedcom);
 
 $head = '
