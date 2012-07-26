@@ -1,5 +1,6 @@
 <?php
 define('ROOT', dirname(dirname(__DIR__)));
+define('MODULE', 'module_liste');
 require ROOT.'/core/require/commun.php';
 $head = '<link type="text/css" href="style.css" rel="stylesheet">';
 head($head);

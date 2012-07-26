@@ -13,26 +13,17 @@ GLOBAL $fichiersGed, $MODULES;
     <?php echo $head ?>
 </head>
 <body id="body">
-    <header id="page">
+    <a href="#" id="header_open" title="Accés au menu"><img src="../../css/header.png" alt="" /></a>
+    <header id="page" class="menu_actif">
         <h1 class="titre"><?php echo TITRE ?></h1>
         <nav>
             <ul>
-                <li><a class="onglet" id="close" href="#">Close</a></li>
                 <li><a class="onglet" href="../../">Accueil</a></li>
                 <li>
                     <a href="#" class="onglet deroulant">Visualisation</a>
                     <form method="get" action="?">
                         <fieldset>
-                            <legend>Général</legend>
-                            <p>
-                                <label for="ged">Fichier</label>
-                                <!--  onchange="submit()" -->
-                                <select id="ged" name="ged" >
-                                    <?php foreach ($fichiersGed as $key => $fichier) : ?>
-                                        <option value="<?php echo $key ?>" <?php echo ($_SESSION['WVG']['FICHIER'] == $fichier ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </p>
+                            <legend>Vues</legend>
                             <p>
                                 <label for="visu">Visualisation</label>
                                 <select id="visu" name="module">
@@ -43,15 +34,34 @@ GLOBAL $fichiersGed, $MODULES;
                             </p>
                         </fieldset>
                         <p>
-                            <input type="submit" name="envoyer" value="Envoyer">
+                            <input type="submit" name="envoyer" value="Visualiser">
                         </p>
                     </form>
                 </li>
-                <li><a class="onglet" href="../../">Paramètres</a></li>
+                <li>
+                    <a href="#" class="onglet deroulant">Paramètres</a>
+                    <form method="get" action="?">
+                        <fieldset>
+                            <legend>Général</legend>
+                            <p>
+                                <label for="ged">Fichier Gedcom</label>
+                                <!--  onchange="submit()" -->
+                                <select id="ged" name="ged" >
+                                    <?php foreach ($fichiersGed as $key => $fichier) : ?>
+                                        <option value="<?php echo $key ?>" <?php echo ($_SESSION['WVG']['FICHIER'] == $fichier ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </p>
+                        </fieldset>
+                        <p>
+                            <input type="submit" name="envoyer" value="Modifier">
+                        </p>
+                    </form>                    
+               </li>
             </ul>
         </nav>
     </header>
-    <div id="slider-width"></div>
+    <div id="slider-width" class="menu_actif"></div>
     <div id="slider-height"></div>
     <article id="visualisation">
         <h1 class="h1-like"><?php echo $MODULES[MODULE]['titre'] ?></h1>

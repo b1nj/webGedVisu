@@ -14,26 +14,21 @@ function resize() {
         view();
     }    
 }
-$(window).resize(function() {
+/*$(window).resize(function() {
     resize();
-});
+});*/
 
 /*
  * Menu
  */
-// Affichage du menu 
-$('body').bind('mouseleave', function() {
-    $('header#page').show();
-    $('#slider-width, .h1-like').addClass('actif');
-});
-// Fermeture du menu
-$('#close').click(function () {
-    $('header#page').hide();
-    $('#slider-width, .h1-like').removeClass('actif');
+// Fermeture/ouverture du menu
+$('#header_open').click(function () {
+    $('#page, #slider-width').toggleClass('menu_actif');
 });
 // Menu déroulant
 $('.deroulant').click(function () {
-       $(this).parents().toggleClass('actif');
+    $('#page nav li').removeClass('onglet_actif');
+    $(this).parents('li').toggleClass('onglet_actif');
 });
 
 /*
@@ -61,6 +56,6 @@ $("#slider-height").slider({
     }
 });
 // Dimension des sliders
-$("#slider-height").height(height - 20);
+$("#slider-height").height(height - 60);
 $("#slider-width").width(width - 20);
 

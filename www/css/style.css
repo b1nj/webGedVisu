@@ -30,9 +30,6 @@ a img {border: 0;}
     top: 40px;
     left: 40px;
 }
-    .h1-like.actif {
-        top: 70px;
-    } 
 p {
 	color: #494424;
 }
@@ -50,17 +47,29 @@ body {
 }
 #slider-height {
     position: fixed;
-    top: 40px;
+    top: 60px;
     left : 20px;
 }
 #slider-width {
     position: fixed;
-    left: 40px;
+    left: 55px;
     top: 20px;
 }
-    #slider-width.actif {
+    #slider-width.menu_actif {
         top: 50px;
     }
+#header_open {
+    position: fixed;
+    z-index: 1000001;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background: rgba(73, 68, 36, 0.8);
+    border-radius: 0 0 10px 0;
+}
 header#page {
     position: fixed;
     display: none;
@@ -69,27 +78,32 @@ header#page {
 	top: 0px;
 	left: 0px;
 	width: 100%;
-	height: 37px;
+	height: 40px;
 }
-	header#page nav {
+    #page.menu_actif {
+        display: block;
+    }
+	#page nav {
 		position: absolute;
 		bottom: 0px;
 		left: 90px;
 		width: 700px;
 	}
-		header#page nav ul {
+		#page nav ul {
 			list-style-type: none;
 			margin: 0;
 			padding: 0;
 			display: block;
 		}
-			header#page nav li {
+			#page nav li {
 				display: inline-block;
 				position: relative;
 				margin-left: 1em;
+				height: 40px;
 			}
 				.onglet {
 				    position: relative;
+				    height: 20px;
 					background: rgba(73, 68, 36, 0.9);
 					color: white;
 					display: block;
@@ -97,23 +111,24 @@ header#page {
 					text-decoration: none;
 				}
 
-				li:hover .onglet, li.actif .onglet  {
+				li:hover .onglet, li.onglet_actif .onglet  {
 					background: #e1dcc2;
 					color: #494424;
 				}
 				nav form {
 					position: absolute;
-					top: 35px;
+					top: 40px;
 					left: 0;
 					background: #e1dcc2;
-					border: 1px solid #dcd7b9;
+					border: 1px solid #c3ba87;
+					border-top: 0 none;
 					border-radius: 0 0 10px 10px;
 					padding: 10px;
 					display: none;
 				}
-                .actif form {
+                li.onglet_actif form {
                     display: block;
                 }
-section {
+article {
 
 }
