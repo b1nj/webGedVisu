@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Classes;
+namespace core\classes;
 
 abstract class Parseur {
 
@@ -24,7 +24,7 @@ abstract class Parseur {
             $this->gedcom = $this->parseNode(0,0);
             $this->parseArbre();
         } else {
-            echo ($this->gedcomFichier.' is not a valid Gedcom file.');
+            throw new \Exception($this->gedcomFichier.' is not a valid Gedcom file.');
         }
     }
     /**
@@ -48,7 +48,7 @@ abstract class Parseur {
             $this->fichierContenu = $buffer;
             unset($buffer);
         } else {
-            echo ('Cannot open file '.$this->gedcomFichier);
+    		throw new \Exception  ('Cannot open file '.$this->gedcomFichier);
         }
     }
     
@@ -58,7 +58,7 @@ abstract class Parseur {
      * @access protected
      * @return boolean
      */
-    public function isValidGedcomFichier()
+    protected function isValidGedcomFichier()
     {
         return (($this->fichierContenu[0] == '0 HEAD')  && ($this->fichierContenu[count($this->fichierContenu) - 1] == '0 TRLR'))
         ? true : false;
@@ -85,6 +85,14 @@ abstract class Parseur {
         }
     }
 
+    /**
+     * Parse le fichier Gedcom
+     *
+     * Fonction récursive
+     *
+     * @access protected
+     * @return arbre
+     */
     protected function parseNode($key, $niveau) 
     {
         // Initialisation
@@ -150,15 +158,17 @@ abstract class Parseur {
     
     /**
     * parse une ligne gedcom
-    * return array
+    * @return array
     */
     protected function parseLigne($buffer) 
     {
         $ligne = explode(' ', $buffer);
         return $ligne;
     }
-    /*
+	
+    /**
      * Vérifie l'existence d'une autre node
+	 * @return boolean
      */
     protected function isLeaf($key)
     {

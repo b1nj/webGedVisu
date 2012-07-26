@@ -1,7 +1,7 @@
 <?php
-namespace Modules\InfoVisToolkit;
+namespace modules\infoVisToolkit;
  
-class Arbre extends  \Core\Classes\Arbre {
+class Arbre extends  \core\classes\Arbre {
     
     protected function node($identifiant)
     {

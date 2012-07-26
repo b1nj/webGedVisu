@@ -1,5 +1,5 @@
 <?php
-namespace Core\Classes;
+namespace core\classes;
 
 class Famille {
     

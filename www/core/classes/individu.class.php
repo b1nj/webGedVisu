@@ -1,5 +1,5 @@
 <?php
-namespace Core\Classes;
+namespace core\classes;
 
 class Individu {
     
@@ -19,8 +19,8 @@ class Individu {
     {
         if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet
             $this->hydrate($valeurs);
-    } 
-    
+    }
+   
     /**
      * Méthode assignant les valeurs spécifiées aux attributs correspondant
      * @param $donnees array Les données à assigner

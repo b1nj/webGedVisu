@@ -1,9 +1,5 @@
-<?php
-/**
- * 
- */
- 
-namespace Core\Classes;
+<?php 
+namespace core\classes;
  
 class Arbre {
     protected $deCujus;

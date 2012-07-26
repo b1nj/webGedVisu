@@ -23,6 +23,3 @@ function redirect($chemin)
     header("location: ".$chemin);
     exit();
 }
-
-
-?>

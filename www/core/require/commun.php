@@ -45,7 +45,7 @@ if (CACHE and !$load and isset($_SESSION['GEDCOM'])) {
     $gedcom = $_SESSION['GEDCOM'];
 }
 if (!isset($gedcom) or $load) {
-    $gedcom = new Core\Classes\Gedcom($_SESSION['WVG']['FICHIER']);
+    $gedcom = new core\classes\Gedcom($_SESSION['WVG']['FICHIER']);
 }
 if (CACHE) {
     function session($gedcom) {
@@ -70,5 +70,3 @@ foreach ($modules as $key => $module) {
 if (isset($_GET['module']) and array_key_exists($_GET['module'], $MODULES)) {
     redirect(URL.'/modules/'.$MODULES[$_GET['module']]['module'].'/'.$MODULES[$_GET['module']]['url']);
 }
-
-?>

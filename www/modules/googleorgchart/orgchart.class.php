@@ -1,7 +1,7 @@
 <?php
-namespace Modules\GoogleOrgChart;
+namespace modules\googleOrgChart;
 
-class OrgChart extends \Core\classes\Gedcom {
+class OrgChart extends \core\classes\Gedcom {
     
     protected $orgChart;
     
@@ -13,7 +13,7 @@ class OrgChart extends \Core\classes\Gedcom {
     /**
     * Constructeur de Gedcom
     */
-    public function __construct(\Core\Classes\Gedcom $donnees)
+    public function __construct(\core\classes\Gedcom $donnees)
     {
         $this->hydrate($donnees);
         $this->orgChart();

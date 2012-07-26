@@ -3,7 +3,7 @@ define('ROOT', dirname(dirname(__DIR__)));
 define('MODULE', 'googleorgchart');
 require ROOT.'/core/require/commun.php';
 
-$orgChart = new Modules\GoogleOrgChart\orgChart($gedcom);
+$orgChart = new modules\googleOrgChart\orgChart($gedcom);
 
 $script = <<<EOB
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -28,7 +28,7 @@ EOB;
 
 head();
 ?>
-    <div id="visualization" style="width: 300px; height: 300px;"></div>
+    <div id="visualization" style="overflow: auto;"></div>
 <?php
 foot($script);
 ?>

@@ -2,16 +2,16 @@
 define('ROOT', dirname(dirname(__DIR__)));
 define('MODULE', 'liste');
 require ROOT.'/core/require/commun.php';
-
-head();
+$head = '<link type="text/css" href="style.css" rel="stylesheet">';
+head($head);
 ?>
-<table>
+<table class="liste">
     <tr>
         <th>Id</th>
         <th>Nom</th>
     </tr>
     <?php foreach ($gedcom->getGedcomIndividus() as $individu) : ?>
-    <tr>
+    <tr class="<?php $i = empty($i) ? 1 : $i + 1; echo (($i%2) == 0? "pair" : "impair"); ?>">
         <td><?php echo  $individu->id() ?></td>
         <td><?php echo  $individu->nom() ?></td>
     </tr>
