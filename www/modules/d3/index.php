@@ -13,7 +13,7 @@ require ROOT.'/core/require/commun.php';
 
 $arbre = new modules\d3\Arbre($gedcom);
 
-$json = fopen('arbre.json',"w+");
+$json = fopen('../../cache/js/arbre.json',"w+");
 fwrite($json, json_encode($arbre->getArbre()));
 fclose($json);
 
@@ -25,9 +25,5 @@ $script = '
     <script type="text/javascript" src="'.$type.'.js"></script>
     ';
 head($head);
-?>
-<?php echo (isset($_GET['largeur']) and is_numeric($_GET['largeur'])) ? $_GET['largeur'].'px': '100%' ?>
-
-<?php
 foot($script);
 ?>

@@ -7,5 +7,3 @@ $MODULES['googleorgchart'] =
         'url' => 'index.php',
         'module' => 'googleorgchart'
 );
-
-?>

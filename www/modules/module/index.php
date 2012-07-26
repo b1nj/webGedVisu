@@ -1,0 +1,19 @@
+<?php
+define('ROOT', dirname(dirname(__DIR__)));
+require ROOT.'/core/require/commun.php';
+$head = '<link type="text/css" href="style.css" rel="stylesheet">';
+head($head);
+?>
+<div class="accueil">
+    <?php $i = 0; foreach ($MODULES as $key => $visu) : ?>
+        <?php echo ($i == 4 ? '<div class="row"></div>' : ""); $i = $i == 4 ? 1 : $i + 1 ?>
+        <article>
+            <h2><?php echo $visu['titre'] ?></h2>
+            <p>
+                <?php echo $visu['description'] ?><br>
+                <a href="../../modules/<?php echo $visu['module'] ?>/<?php echo $visu['url'] ?>">Visualiser</a>
+            </p>
+        </article>
+    <?php endforeach; ?>
+</div>
+<?php foot(); ?>

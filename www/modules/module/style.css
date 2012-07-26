@@ -1,0 +1,19 @@
+.accueil {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    margin-top: 45px;
+}
+
+    .accueil article {
+        display: table-cell;
+        padding: 10px;
+        margin: 10px;
+        border: 1px dotted #ece9d8;
+        background: #fdfcfa;
+    }
+    .accueil .row {
+        display: table-row;
+    }

@@ -7,5 +7,3 @@ $MODULES['googlemaps'] =
         'url' => 'index.php',
         'module' => 'googlemaps'
     );
-
-?>

@@ -15,5 +15,3 @@ $MODULES['d3_tree-radial'] =
         'url' => 'index.php?type=tree-radial',
         'module' => 'd3'
     );
-
-?>

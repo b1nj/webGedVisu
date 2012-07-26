@@ -18,6 +18,4 @@ head($head);
     <?php endforeach; ?>
 </table>
 
-<?php
-foot();
-?>
+<?php foot(); ?>

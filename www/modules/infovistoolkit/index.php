@@ -14,8 +14,7 @@ require ROOT.'/core/require/commun.php';
 $arbre = new modules\infoVisToolkit\Arbre($gedcom);
 
 $head = '
-    <link type="text/css" href="Jit/Examples/css/basen.css" rel="stylesheet" >
-    <link type="text/css" href="Jit/genealogie.css" rel="stylesheet" >
+    <link type="text/css" href="genealogie.css" rel="stylesheet" >
 ';
 $script = '    
     <!--[if IE]><script language="javascript" type="text/javascript" src="Jit/Extras/excanvas.js"></script><![endif]-->
@@ -24,7 +23,7 @@ $script = '
     <script language="javascript" type="text/javascript" src="Jit/jit.js"></script>
     
     <!-- Example File -->
-    <script language="javascript" type="text/javascript" src="Jit/'.$type.'.js"></script>
+    <script language="javascript" type="text/javascript" src="'.$type.'.js"></script>
     
     <script type="text/javascript">
     var json = '.json_encode($arbre->getArbre()) .'

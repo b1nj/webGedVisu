@@ -211,4 +211,3 @@ abstract class Parseur {
         return $places;
     }
 }
-?>

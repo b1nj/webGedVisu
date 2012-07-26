@@ -82,4 +82,3 @@ class Famille {
         return $this->gedcom;
     }
 }
-?>

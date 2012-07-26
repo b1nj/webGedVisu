@@ -59,7 +59,7 @@ if (CACHE) {
 ******************************************************************/
 // Récupération de la liste des modules installés
 if (!$modules = glob(ROOT.'/modules/*/parametres.php')) {
-    echo _("Aucun module installé.");
+    echo "Aucun module installé.";
     exit();
 }
 $MODULES = array();
@@ -68,5 +68,5 @@ foreach ($modules as $key => $module) {
 }
 // Redirection vers le module selectionné
 if (isset($_GET['module']) and array_key_exists($_GET['module'], $MODULES)) {
-    redirect(URL.'/modules/'.$MODULES[$_GET['module']]['module'].'/'.$MODULES[$_GET['module']]['url']);
+    redirect('../'.$MODULES[$_GET['module']]['module'].'/'.$MODULES[$_GET['module']]['url']);
 }

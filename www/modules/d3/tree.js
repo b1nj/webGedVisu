@@ -11,7 +11,7 @@ function  view() {
       .append("g")
         .attr("transform", "translate(40, 0)");
     
-    d3.json("arbre.json", function(json) {
+    d3.json("../../cache/js/arbre.json", function(json) {
       var nodes = tree.nodes(json);
     
       var link = vis.selectAll("path.link")

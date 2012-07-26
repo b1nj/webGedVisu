@@ -92,4 +92,3 @@ class Individu {
         return $this->gedcom;
     }
 }
-?>

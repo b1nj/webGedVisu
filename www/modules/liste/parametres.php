@@ -7,4 +7,4 @@ $MODULES['liste'] =
         'url' => 'index.php',
         'module' => 'liste'
     );
-?>
+    

@@ -1,5 +1,6 @@
 <?php
 /**
+* NOTE : fonction pas utilisée
 * Exécute un array_map récursivement
 * @param string $fn fonction de rappel
 * @param array $array tableau

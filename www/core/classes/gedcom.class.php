@@ -115,4 +115,3 @@ class Gedcom extends Parseur {
         return false;
     }
 }
-?>
