@@ -1,5 +1,6 @@
 var labelType, useGradients, nativeTextSupport, animate;
 
+
 (function() {
   var ua = navigator.userAgent,
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
@@ -15,24 +16,16 @@ var labelType, useGradients, nativeTextSupport, animate;
   animate = !(iStuff || !nativeCanvasSupport);
 })();
 
-var Log = {
-  elem: false,
-  write: function(text){
-    if (!this.elem) 
-      this.elem = document.getElementById('log');
-    this.elem.innerHTML = text;
-    this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
-  }
-};
 
-
-function init(json){
+function view(){
     //init Sunburst
     var sb = new $jit.Sunburst({
         //id container for the visualization
-        injectInto: 'infovis',
+        injectInto: 'visualisation',
         //Distance between levels
         levelDistance: 20,
+        width: width,
+        height: height,
         //Change node and edge styles such as
         //color, width and dimensions.
         Node: {

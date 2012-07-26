@@ -1,63 +1,109 @@
-header, section, article, nav, footer, aside, menu, hgroup, figure,
-figcaption {
-	display:block;
+/* reset basé sur Knacss.com */
+html {font-size: 62.5%;}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {display: block;}
+html, body, blockquote, ul, ol, form {margin: 0; padding: 0;}
+ul, ol {padding-left: 2em}
+p, li, td, th, textarea {font-size: 1.3em;}
+li li, li p, td p, th p, li h1, li h2, li h3, li h4, li h5, li h6, input {font-size: 100%;}
+h1, .h1-like {font-size: 1.8em; } 
+h2, .h2-like {font-size: 1.6em; }
+h3, .h3-like {font-size: 1.4em; }
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, p:first-child {margin-top: 0;}
+p:last-child {margin-bottom: 0;}
+img, table, td, blockquote, code, pre, textarea, input, iframe, object, embed, video { max-width: 100%; height: auto;}
+textarea, table, td, th, code, pre, samp, div, p {word-wrap: break-word;}
+code, pre, samp {white-space: pre-wrap;}
+a img {border: 0;}
+
+.titre {
+    color: white;
+    margin-left: 20px;
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
+    margin: 0;
+    padding:0;
+    font-size: 3.2em;
 }
+.h1-like {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+    .h1-like.actif {
+        top: 70px;
+    } 
 p {
-	font-size: .8em;
 	color: #494424;
 }
-body {
-	background : #ece9d8;
-	font-family:  Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
-	font-size: 100%;
+html {
+    background : #ece9d8;
 }
+body {
+    background : white;
+    font-family:  Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
+    line-height: 1.2;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #dcd7b9;
+    border-radius: 10px;
+}
+#slider-height {
+    position: fixed;
+    top: 40px;
+    left : 20px;
+}
+#slider-width {
+    position: fixed;
+    left: 40px;
+    top: 20px;
+}
+    #slider-width.actif {
+        top: 50px;
+    }
 header#page {
-	position: absolute;
+    position: fixed;
+    display: none;
+    background: rgba(73, 68, 36, 0.8);
+    z-index: 1000000;
 	top: 0px;
 	left: 0px;
 	width: 100%;
 	height: 37px;
 }
-	header#page h1 {
-		color: #ded8bb;
-		margin-left: 20px;
-		position: absolute;
-		bottom: -5px;
-		right: 30px;
-		margin: 0;
-		padding:0;
-	}
 	header#page nav {
 		position: absolute;
 		bottom: 0px;
 		left: 90px;
-		z-index: 1000000;
 		width: 700px;
 	}
 		header#page nav ul {
 			list-style-type: none;
 			margin: 0;
 			padding: 0;
+			display: block;
 		}
 			header#page nav li {
 				display: inline-block;
 				position: relative;
-				margin-right: 20px;
+				margin-left: 1em;
 			}
-				header#page nav .onglet {
-					background: #494424;
+				.onglet {
+				    position: relative;
+					background: rgba(73, 68, 36, 0.9);
 					color: white;
-					display: inline-block;
+					display: block;
 					padding: 10px 20px;
 					text-decoration: none;
 				}
-				header#page nav li:hover .onglet {
+
+				li:hover .onglet, li.actif .onglet  {
 					background: #e1dcc2;
 					color: #494424;
 				}
-				header#page nav form {
+				nav form {
 					position: absolute;
-					top: 41px;
+					top: 35px;
 					left: 0;
 					background: #e1dcc2;
 					border: 1px solid #dcd7b9;
@@ -65,36 +111,29 @@ header#page {
 					padding: 10px;
 					display: none;
 				}
-				header#page nav li:hover form {
-					display: block;
-				}
+                .actif form {
+                    display: block;
+                }
 section {
-	margin: 10px;
-	margin-top: 37px;
-	padding: 10px;
-	border: 1px solid #dcd7b9;
-	border-radius: 10px;
-	background : white;
-	min-height: 300px;
+
 }
-	section:after {
-	  content: ""; 
-	  display: block;
-	  clear: both;
-	}
-	section header h1 {
-		position:static;
-		color: #494424;
-	}
-	
-	
-	
 	
 .accueil {
-	width: 250px;
-	padding: 10px;
-	margin: 10px;
-	float: left;
-	border: 1px dotted #ece9d8;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    margin-top: 45px;
 }
 
+    .accueil article {
+        display: table-cell;
+    	padding: 10px;
+    	margin: 10px;
+    	border: 1px dotted #ece9d8;
+    	background: #fdfcfa;
+    }
+    .accueil .row {
+        display: table-row;
+    }

@@ -1,0 +1,33 @@
+/*---- AFFICHAGE LISTES  -------*/
+table.liste  {
+width: 100%;
+border-collapse:collapse;
+border-bottom: 1px solid #cbc67d;
+text-align: left;
+margin-top: 45px;
+}
+    .liste td, .liste tr, .liste th {
+    padding: 2px 5px;
+    border: 3px solid white;
+    }
+        /*.liste td:hover,*/ .liste tr:hover {
+        background: #e2e2e2;
+        }
+    .liste th {
+    text-align: center;
+    background: #cbc67d;
+    color: white;
+    }
+        #texte .liste th a{
+        color: white;
+        text-decoration:  none;
+        }
+            #texte .liste th a:hover{
+            text-decoration:  underline;
+            }
+    tr.impair {
+    background-color: #f5f5f5;
+    }
+    tr.pair {
+    background-color: #ebebeb;
+    }

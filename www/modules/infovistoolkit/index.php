@@ -11,7 +11,7 @@ require ROOT.'/core/require/commun.php';
 
 
 
-$arbre = new Modules\InfoVisToolkit\Arbre($gedcom);
+$arbre = new modules\infoVisToolkit\Arbre($gedcom);
 
 $head = '
     <link type="text/css" href="Jit/Examples/css/basen.css" rel="stylesheet" >
@@ -28,14 +28,11 @@ $script = '
     
     <script type="text/javascript">
     var json = '.json_encode($arbre->getArbre()) .'
-    init(json);
+    /*init(json);*/
     </script>
 ';
 head($head);
-?>
-    <div id="id-list"></div>
-        <div id="infovis"></div>    
-    <div id="log"></div>
+?> 
 <?php
 foot($script);
 ?>

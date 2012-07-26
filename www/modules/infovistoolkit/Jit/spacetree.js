@@ -1,5 +1,6 @@
 var labelType, useGradients, nativeTextSupport, animate;
 
+    
 (function() {
   var ua = navigator.userAgent,
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
@@ -15,29 +16,22 @@ var labelType, useGradients, nativeTextSupport, animate;
   animate = !(iStuff || !nativeCanvasSupport);
 })();
 
-var Log = {
-  elem: false,
-  write: function(text){
-    if (!this.elem) 
-      this.elem = document.getElementById('log');
-    this.elem.innerHTML = text;
-    this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
-  }
-};
 
 
-function init(json){
+function view(){
     //init Spacetree
     //Create a new ST instance
     var st = new $jit.ST({
         //id of viz container element
-        injectInto: 'infovis',
+        injectInto: 'visualisation',
         //set duration for the animation
         duration: 800,
         //set animation transition type
         transition: $jit.Trans.Quart.easeInOut,
         //set distance between node and its children
         levelDistance: 50,
+        width: width,
+        height: height,
         //enable panning
         Navigation: {
           enable:true,
@@ -61,13 +55,7 @@ function init(json){
             overridable: true
         },
         
-        onBeforeCompute: function(node){
-            Log.write("loading " + node.data.description);
-        },
-        
-        onAfterCompute: function(){
-            Log.write("done");
-        },
+
         
         
         //This method is called on DOM label creation.
