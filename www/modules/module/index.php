@@ -6,7 +6,7 @@ $head = '<link type="text/css" href="style.css" rel="stylesheet">';
 head($head);
 ?>
 <div class="accueil">
-    <?php $i = 0; foreach ($MODULES as $key => $visu) : ?>
+    <?php $i = 0; foreach ($wgv->getModules()->getModules() as $key => $visu) : ?>
         <?php echo ($i == 4 ? '<div class="row"></div>' : ""); $i = $i == 4 ? 1 : $i + 1 ?>
         <article>
             <h2><?php echo $visu['titre'] ?></h2>

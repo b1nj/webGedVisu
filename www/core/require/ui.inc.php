@@ -1,12 +1,13 @@
 <?php
 function head($head=false) {
-GLOBAL $fichiersGed, $MODULES;
+GLOBAL $wgv;
+$module = $wgv->getModule();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $MODULES[MODULE]['titre'] ?> - <?php echo TITRE ?></title>
+    <title><?php echo $module['titre'] ?> - <?php echo TITRE ?></title>
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <link type="text/css" href="../../css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/ui/base/jquery.ui.all.css">
@@ -27,7 +28,7 @@ GLOBAL $fichiersGed, $MODULES;
                             <p>
                                 <label for="visu">Visualisation</label>
                                 <select id="visu" name="module">
-                                    <?php foreach ($MODULES as $key => $visu) : ?>
+                                    <?php foreach ($wgv->getModules()->getModules() as $key => $visu) : ?>
                                         <option value="<?php echo $key ?>" <?php echo (MODULE == $key ? 'selected="selected"' : '') ?>><?php echo $visu['titre'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -47,8 +48,8 @@ GLOBAL $fichiersGed, $MODULES;
                                 <label for="ged">Fichier Gedcom</label>
                                 <!--  onchange="submit()" -->
                                 <select id="ged" name="ged" >
-                                    <?php foreach ($fichiersGed as $key => $fichier) : ?>
-                                        <option value="<?php echo $key ?>" <?php echo ($_SESSION['WVG']['FICHIER'] == $fichier ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
+                                    <?php foreach ($wgv->getGedcoms()->getGedcoms() as $key => $fichier) : ?>
+                                        <option value="<?php echo $key ?>" <?php echo ($wgv->getGedcomFichier() == $key ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </p>
@@ -64,7 +65,7 @@ GLOBAL $fichiersGed, $MODULES;
     <div id="slider-width" class="menu_actif"></div>
     <div id="slider-height"></div>
     <article id="visualisation">
-        <h1 class="h1-like"><?php echo $MODULES[MODULE]['titre'] ?></h1>
+        <h1 class="h1-like"><?php echo $module['titre'] ?></h1>
 
 <?php
 }
