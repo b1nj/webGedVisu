@@ -3,10 +3,9 @@ require(ROOT.'/core/require/autoload.php');
 require(ROOT.'/core/require/functions.php');
 require(ROOT.'/core/require/parametres.php');
 require(ROOT.'/core/require/ui.inc.php');
-if (CACHE) {
-    // Mettre avant session_start a cause de la mise en session de l'instance Gedcom
-    require(ROOT.'/core/classes/gedcom.class.php'); 
-}
+// Mettre avant session_start a cause de la mise en session de l'instance Gedcom
+require(ROOT.'/core/classes/webGedVisu.class.php'); 
+
 session_start();
 
 if (!defined('MODULE')) {
