@@ -6,9 +6,9 @@ class WebGedVisu {
     
     protected $modules;
     protected $gedcoms;
-    public $gedcom; // TODO provisoire
     public $module; // TODO provisoire
-    protected $gedcom_fichier;
+    protected $gedcomFichier;
+    protected $gedcomKey;
     
 
    /**
@@ -18,7 +18,7 @@ class WebGedVisu {
     {
         $this->gedcoms = new Gedcoms();
         $this->modules = new Modules();
-        $this->setGedcom($gedcom ? $gedcom : 0);
+        $this->setGedcom($gedcom ? $gedcom : 0); // 0 : Premier gedcom de la liste
         $this->setModule($module ? $module : DEFAUT_MODULE);
     }
     
@@ -26,17 +26,13 @@ class WebGedVisu {
     * Défini le fichier Gedcom
     * @param string $gedcom_fichier
     */
-    public function setGedcom($gedcom_fichier)
+    public function setGedcom($gedcomKey)
     {
-        if ($gedcom_fichier and $gedcom_fichier !== $this->gedcom_fichier) {            
-            if (array_key_exists($gedcom_fichier, $this->gedcoms->getGedcoms())) {
-                $this->gedcom_fichier = $gedcom_fichier;
+        if ($gedcomKey !== false and $gedcomKey !== $this->gedcomKey) {            
+            if (array_key_exists($gedcomKey, $this->gedcoms->getGedcoms())) {
+                $this->gedcomKey = $gedcomKey;
                 $gedcoms = $this->gedcoms->getGedcoms();
-                if (CACHE) {
-                    $this->gedcom = ObjetCache::getInstance('\core\classes\Gedcom', $gedcoms[$this->gedcom_fichier]);
-                } else {
-                    $this->gedcom = new Gedcom($gedcoms[$this->gedcom_fichier]); 
-                }
+                $this->gedcomFichier = $gedcoms[$this->gedcomKey];
             } else {
                 throw new \Exception  ('Le fichier Gedcom n\'existe pas.');
             }
@@ -81,7 +77,11 @@ class WebGedVisu {
     }
     public function getGedcomFichier()
     {
-        return $this->gedcom_fichier;
+        return $this->gedcomFichier;
+    }
+    public function getGedcomKey()
+    {
+        return $this->gedcomKey;
     }
     
     

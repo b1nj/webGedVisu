@@ -33,4 +33,8 @@ if (isset($_SESSION['WVG'])) {
 }
 register_shutdown_function(array($wgv, 'session'));
 
-$gedcom = $wgv->gedcom;
+if (CACHE) {
+    $gedcom = \core\classes\ObjetCache::getInstance('\core\classes\Gedcom', $wgv->getGedcomFichier());
+} else {
+    $gedcom = new \core\classes\Gedcom($wgv->getGedcomFichier());
+}

@@ -8,10 +8,10 @@ class Gedcom extends Parseur {
     */
 	public function __construct($file=false)
 	{
-		if ($file) {
-			$this->gedcomFichier = $file;
-		}
-		$this->parse();
+        if ($file) {
+            $this->gedcomFichier = $file;
+        }
+        $this->parse();
 	}
 
     /**

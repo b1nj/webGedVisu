@@ -49,7 +49,7 @@ $module = $wgv->getModule();
                                 <!--  onchange="submit()" -->
                                 <select id="ged" name="ged" >
                                     <?php foreach ($wgv->getGedcoms()->getGedcoms() as $key => $fichier) : ?>
-                                        <option value="<?php echo $key ?>" <?php echo ($wgv->getGedcomFichier() == $key ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
+                                        <option value="<?php echo $key ?>" <?php echo ($wgv->getGedcomKey() == $key ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </p>
