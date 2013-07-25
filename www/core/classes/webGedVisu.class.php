@@ -45,6 +45,7 @@ class WebGedVisu {
     */
     public function setModule($key_module)
     {
+    	$key_module = $key_module ? $key_module : DEFAUT_MODULE;
         $this->module = $this->modules->getModule($key_module);
         $this->goToModule($key_module);
     }
@@ -55,7 +56,7 @@ class WebGedVisu {
     public function goToModule($key_module)
     {
         if (MODULE != $key_module) {
-            redirect('../../'.Modules::REPERTOIRE.'/'.$this->module['module'].'/'.$this->module['url']);            
+            redirect((!MODULE ? '' : '../../').Modules::REPERTOIRE.'/'.$this->module['module'].'/'.$this->module['url']);            
         }    
     }
 
