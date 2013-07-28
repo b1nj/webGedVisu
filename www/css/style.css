@@ -5,7 +5,7 @@ html, body, blockquote, ul, ol, form {margin: 0; padding: 0;}
 ul, ol {padding-left: 2em}
 p, li, td, th, textarea {font-size: 1.3em;}
 li li, li p, td p, th p, li h1, li h2, li h3, li h4, li h5, li h6, input {font-size: 100%;}
-h1, .h1-like {font-size: 1.8em; } 
+h1, .h1-like {font-size: 1.8em; }
 h2, .h2-like {font-size: 1.6em; }
 h3, .h3-like {font-size: 1.4em; }
 h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, p:first-child {margin-top: 0;}
@@ -129,6 +129,7 @@ header#page {
                 li.onglet_actif form {
                     display: block;
                 }
-article {
-
+#visualisation_content.draggable {
+    overflow: hidden;
 }
+

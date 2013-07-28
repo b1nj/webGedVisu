@@ -1,12 +1,12 @@
 var labelType, useGradients, nativeTextSupport, animate;
 
-    
+
 (function() {
   var ua = navigator.userAgent,
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
       typeOfCanvas = typeof HTMLCanvasElement,
       nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport 
+      textSupport = nativeCanvasSupport
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
   //I'm setting this based on the fact that ExCanvas provides text support for IE
   //and that as of today iPhone/iPad current text support is lame
@@ -38,7 +38,7 @@ function view(){
           panning:true
         },
         orientation:'bottom',
-        
+
         //set node and edge styles
         //set overridable=true for styling individual
         //nodes or edges
@@ -49,20 +49,20 @@ function view(){
             color: '#aaa',
             overridable: true
         },
-        
+
         Edge: {
             type: 'bezier',
             overridable: true
         },
-        
 
-        
-        
+
+
+
         //This method is called on DOM label creation.
         //Use this method to add event handlers and styles to
         //your node.
         onCreateLabel: function(label, node){
-            label.id = node.id;            
+            label.id = node.id;
             label.innerHTML = node.data.description;
             label.onclick = function(){
             	  st.onClick(node.id);
@@ -70,14 +70,14 @@ function view(){
             //set label styles
             var style = label.style;
             style.width = 150 + 'px';
-            style.height = 77 + 'px';            
+            style.height = 77 + 'px';
             style.cursor = 'pointer';
             style.color = '#333';
             style.fontSize = '0.8em';
             style.textAlign= 'center';
             style.paddingTop = '3px';
         },
-        
+
         //This method is called right before plotting
         //a node. It's useful for changing an individual node
         //style properties before plotting it.
@@ -98,11 +98,11 @@ function view(){
                     node.eachSubnode(function(n) { count++; });
                     //assign a node color based on
                     //how many children it has
-                    node.data.$color = ['#aaa', '#baa', '#caa', '#daa', '#eaa', '#faa'][count];                    
+                    node.data.$color = ['#aaa', '#baa', '#caa', '#daa', '#eaa', '#faa'][count];
                 }
             }
         },
-        
+
         //This method is called right before plotting
         //an edge. It's useful for changing an individual edge
         //style properties before plotting it.
@@ -118,7 +118,7 @@ function view(){
                 delete adj.data.$lineWidth;
             }
         }
-        
+
     });
 
     //load json data
@@ -130,5 +130,5 @@ function view(){
     //emulate a click on the root node.
     st.onClick(st.root);
     //end
-     
+
 }

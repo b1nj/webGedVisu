@@ -6,7 +6,7 @@ var labelType, useGradients, nativeTextSupport, animate;
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
       typeOfCanvas = typeof HTMLCanvasElement,
       nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport 
+      textSupport = nativeCanvasSupport
         && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
   //I'm setting this based on the fact that ExCanvas provides text support for IE
   //and that as of today iPhone/iPad current text support is lame
@@ -17,13 +17,16 @@ var labelType, useGradients, nativeTextSupport, animate;
 })();
 
 
-function view(){
+function view(level){
+    level = level ? level : 20;
+    height = $("#visualisation").height();
+    width = $("#visualisation").width();
     //init Sunburst
     var sb = new $jit.Sunburst({
         //id container for the visualization
         injectInto: 'visualisation',
         //Distance between levels
-        levelDistance: 20,
+        levelDistance: level,
         width: width,
         height: height,
         //Change node and edge styles such as
@@ -52,7 +55,7 @@ function view(){
         Tips: {
           enable: true,
           onShow: function(tip, node) {
-            var html = "<div class=\"tip-title\">" + node.data.description + "</div>"; 
+            var html = "<div class=\"tip-title\">" + node.data.description + "</div>";
             tip.innerHTML = html;
           }
         }

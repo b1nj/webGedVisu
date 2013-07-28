@@ -10,7 +10,7 @@ $module = $wgv->getModule();
     <title><?php echo $module['titre'] ?> - <?php echo TITRE ?></title>
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <link type="text/css" href="../../css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/ui/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="../../css/ui/smoothness/jquery-ui.custom.min.css">
     <?php echo $head ?>
 </head>
 <body id="body">
@@ -57,7 +57,7 @@ $module = $wgv->getModule();
                         <p>
                             <input type="submit" name="envoyer" value="Modifier">
                         </p>
-                    </form>                    
+                    </form>
                </li>
             </ul>
         </nav>
@@ -70,19 +70,22 @@ $module = $wgv->getModule();
 <?php
 }
 
-function foot($script=false) { ?>
+function foot($script=false, $interface_options='') { ?>
 
     </article>
     <footer></footer>
-    <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery-ui-1.8.22.custom.js"></script>
-    <script type="text/javascript" src="../../js/jquery.ui.slider.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.ui.widget.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.ui.mouse.min.js"></script>
-    <script type="text/javascript" src="../../js/scripts.js"></script>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.wgv.interface.js"></script>
+    <script type="text/javascript" src="../../js/jquery.wgv.zoom.js"></script>
+    <script type="text/javascript" src="../../js/jquery.mousewheel.js"></script>
+    <!--<script type="text/javascript" src="../../js/scripts.js"></script>-->
     <?php echo $script ?>
     <script type="text/javascript">
-        if(typeof(view)!="undefined"){ view(); }
+        $(function() {
+            $( "#visualisation" ).interface(<?php echo $interface_options ?>);
+            if(typeof(view)!="undefined"){ view(); }
+        });
     </script>
 </body>
 </html>
