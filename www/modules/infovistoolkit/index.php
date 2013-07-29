@@ -58,5 +58,5 @@ if ($type == 'sunburst') {
 head($head);
 ?>
 <?php
-foot($script, $interface_options);
+foot($script);
 ?>

@@ -3,6 +3,13 @@ define('ROOT', dirname(dirname(__DIR__)));
 define('MODULE', 'module_liste');
 require ROOT.'/core/require/commun.php';
 $head = '<link type="text/css" href="style.css" rel="stylesheet">';
+$script = '
+    <script type="text/javascript">
+        $(function() {
+            $( "#visualisation" ).interface();
+        });
+    </script>
+';
 head($head);
 ?>
 <div class="accueil">
@@ -17,4 +24,4 @@ head($head);
         </article>
     <?php endforeach; ?>
 </div>
-<?php foot(); ?>
+<?php foot($script); ?>

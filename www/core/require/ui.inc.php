@@ -70,7 +70,7 @@ $module = $wgv->getModule();
 <?php
 }
 
-function foot($script=false, $interface_options='') { ?>
+function foot($script=false) { ?>
 
     </article>
     <footer></footer>
@@ -81,12 +81,6 @@ function foot($script=false, $interface_options='') { ?>
     <script type="text/javascript" src="../../js/jquery.mousewheel.js"></script>
     <!--<script type="text/javascript" src="../../js/scripts.js"></script>-->
     <?php echo $script ?>
-    <script type="text/javascript">
-        $(function() {
-            $( "#visualisation" ).interface(<?php echo $interface_options ?>);
-            if(typeof(view)!="undefined"){ view(); }
-        });
-    </script>
 </body>
 </html>
 <?php

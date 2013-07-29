@@ -1,3 +1,4 @@
+$(function() {
 var labelType, useGradients, nativeTextSupport, animate;
 
 
@@ -29,6 +30,11 @@ function view(level){
         levelDistance: level,
         width: width,
         height: height,
+            //enable panning
+            Navigation: {
+              enable:true,
+              panning:true
+            },        
         //Change node and edge styles such as
         //color, width and dimensions.
         Node: {
@@ -59,10 +65,29 @@ function view(level){
             tip.innerHTML = html;
           }
         }
-   });
-    //load JSON data.
+	});
+	//load JSON data.
     sb.loadJSON(json);
     //compute positions and plot.
     sb.refresh();
     //end
 }
+    $("#visualisation")
+        .interface({
+            draggable: false,
+            zoom: false,
+            zoomOptions: {
+                wSlide : false,
+                hMin: 20,
+                hMax: 50,
+                hValue: "30",
+                pas: 1,
+                change: function(event, ui) {
+                    $("#visualisation").html("");
+                    view(ui.hValue);
+                }
+            }
+        });
+        
+view();
+});

@@ -6,6 +6,7 @@ $(function() {
             menuAutoOpen: true,
             zoom : false,
             zoomOptions : {},
+
             // callbacks
             menuOpen: null,
             menuClose: null,
@@ -28,6 +29,11 @@ $(function() {
 
             if (this.options.zoom) {
                 this.element.zoom(this.options.zoomOptions);
+
+                this.element.on('change', function() {
+                	console.log('ttt');
+                	self._trigger("change2", event, self);
+                });
             }
             if (this.options.draggable) {
                 this.draggable();
@@ -68,6 +74,7 @@ $(function() {
             css('height', this.height + 'px');
             $("#visualisation_content").addClass('draggable');
             this.element.draggable({ cursor: "move" });
+            return this;
         },
 
         resize: function() {
@@ -79,6 +86,7 @@ $(function() {
                     this._trigger("resize");
                 }
             });
+            return this;
         },
 
         // Fermeture/ouverture du menu
@@ -86,13 +94,14 @@ $(function() {
             $('#page, #slider-width').addClass('menu_actif');
             this.menuIsOpen = true;
             this._trigger( "menuOpen" );
+			return this;            
         },
 
         menuClose: function(options) {
             $('#page, #slider-width').removeClass('menu_actif');
             this.menuIsOpen = false;
             this._trigger("menuClose");
-        }
-
+        	return this;
+        },
     });
 });

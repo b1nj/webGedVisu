@@ -17,6 +17,11 @@ $(function() {
 
         // the constructor
         _create: function() {
+            this._mousewheel();
+        },
+        
+        // initialisation
+        _init: function() {
             if (this.options.hSlide) {
                 this._showSlideHeight({
                     min: this.options.hMin,
@@ -31,8 +36,7 @@ $(function() {
                     value: this.options.wValue,
                 });
             }
-            this._mousewheel();
-        },
+        },        
 
         _showSlideWidth: function(options) {
             var self = this;

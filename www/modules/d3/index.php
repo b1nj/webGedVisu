@@ -24,52 +24,6 @@ $head = '
 $script = '
     <script type="text/javascript" src="'.$type.'.js"></script>
     ';
-if ($type == 'tree-radial') {
-    $interface_options = '
-    {
-        draggable: true,
-        zoom: true,
-        zoomOptions: {
-            wSlide : false,
-            hMin: 100,
-            hMax: 10000,
-            hValue: "auto",
-            pas: 500,
-            change: function(event, ui) {
-                $("#visualisation").width(ui.hValue).
-                height(ui.hValue).
-                html("");
-                text = ui.hValue > 5000 ? true : false;
-                view(text);
-            }
-        }
-    }
-    ';
-} else {
-    $interface_options = '
-    {
-        draggable: true,
-        zoom: true,
-        zoomOptions: {
-            wMin: 300,
-            wMax: 10000,
-            wValue: "auto",
-            hMin: 100,
-            hMax: 10000,
-            hValue: "auto",
-            pas: 500,
-            change: function(event, ui) {
-                $("#visualisation").width(ui.wValue).
-                height(ui.hValue).
-                html("");
-                text = ui.wValue > 3000 ? true : false;
-                view(text);
-            }
-        }
-    }
-    ';
-}
-
 head($head);
-foot($script, $interface_options);
+foot($script);
 ?>
