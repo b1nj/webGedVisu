@@ -32,29 +32,6 @@ $script = '
     <script language="javascript" type="text/javascript" src="../../cache/js/arbre-sunburst.js"></script>
 
 ';
-
-if ($type == 'sunburst') {
-    $interface_options = '
-    {
-        draggable: true,
-        zoom: true,
-        zoomOptions: {
-            wSlide : false,
-            hMin: 20,
-            hMax: 50,
-            hValue: "30",
-            pas: 1,
-            change: function(event, ui) {
-                $("#visualisation").html("");
-                view(ui.hValue);
-            }
-        }
-    }
-    ';
-} else {
-
-}
-
 head($head);
 ?>
 <?php

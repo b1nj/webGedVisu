@@ -19,3 +19,7 @@
     font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
     padding:7px;
 }
+
+.grabbing {
+    cursor: move;
+}

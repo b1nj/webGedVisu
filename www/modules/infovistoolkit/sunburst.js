@@ -1,45 +1,59 @@
 $(function() {
-var labelType, useGradients, nativeTextSupport, animate;
+    var labelType, useGradients, nativeTextSupport, animate;
 
 
-(function() {
-  var ua = navigator.userAgent,
-      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
-      typeOfCanvas = typeof HTMLCanvasElement,
-      nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport
-        && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
-  //I'm setting this based on the fact that ExCanvas provides text support for IE
-  //and that as of today iPhone/iPad current text support is lame
-  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
-  nativeTextSupport = labelType == 'Native';
-  useGradients = nativeCanvasSupport;
-  animate = !(iStuff || !nativeCanvasSupport);
-})();
+    (function() {
+      var ua = navigator.userAgent,
+          iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
+          typeOfCanvas = typeof HTMLCanvasElement,
+          nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
+          textSupport = nativeCanvasSupport
+            && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
+      //I'm setting this based on the fact that ExCanvas provides text support for IE
+      //and that as of today iPhone/iPad current text support is lame
+      labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
+      nativeTextSupport = labelType == 'Native';
+      useGradients = nativeCanvasSupport;
+      animate = !(iStuff || !nativeCanvasSupport);
+    })();
 
+    $("#visualisation")
+        .interface({
+            draggable: false,
+            zoom: true,
+            zoomOptions: {
+                wSlide : false,
+                hMin: 10,
+                hMax: 80,
+                hValue: 30,
+                pas: 5,
+                change: function(event, ui) {
+                    sb.config.levelDistance = ui.hValue;
+                    sb.refresh();
+                }
+        }
+    });
 
-function view(level){
-    level = level ? level : 20;
     height = $("#visualisation").height();
     width = $("#visualisation").width();
     //init Sunburst
-    var sb = new $jit.Sunburst({
+    sb = new $jit.Sunburst({
         //id container for the visualization
         injectInto: 'visualisation',
         //Distance between levels
-        levelDistance: level,
+        levelDistance: 30,
         width: width,
         height: height,
             //enable panning
             Navigation: {
               enable:true,
-              panning:true
-            },        
+              panning:true,
+            },
         //Change node and edge styles such as
         //color, width and dimensions.
         Node: {
           overridable: true,
-          type: useGradients? 'gradient-multipie' : 'multipie'
+          //type: useGradients? 'gradient-multipie' : 'multipie'
         },
         //Select canvas labels
         //'HTML', 'SVG' and 'Native' are possible options
@@ -65,29 +79,11 @@ function view(level){
             tip.innerHTML = html;
           }
         }
-	});
-	//load JSON data.
+    });
+    //load JSON data.
     sb.loadJSON(json);
     //compute positions and plot.
     sb.refresh();
     //end
-}
-    $("#visualisation")
-        .interface({
-            draggable: false,
-            zoom: false,
-            zoomOptions: {
-                wSlide : false,
-                hMin: 20,
-                hMax: 50,
-                hValue: "30",
-                pas: 1,
-                change: function(event, ui) {
-                    $("#visualisation").html("");
-                    view(ui.hValue);
-                }
-            }
-        });
-        
-view();
+
 });
