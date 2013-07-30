@@ -22,8 +22,10 @@ $_GET['ged'] = isset($_GET['ged']) ? $_GET['ged'] : false;
 // Redirection vers le module selectionné
 $_GET['module'] = isset($_GET['module']) ? $_GET['module'] : MODULE;
 
-
-//Instanciation de la class WebGedVisu et mise en session de l'objet $wgv
+/*
+// Désactivation de la session, pas vraiment utile et pose des problèmes de mise a jours des fichiers gedcoms
+// A controler utiliter plus tard 
+// Instanciation de la class WebGedVisu et mise en session de l'objet $wgv
 if (isset($_SESSION['WVG'])) {
     $wgv = $_SESSION['WVG'];
     $wgv->setGedcom($_GET['ged']);
@@ -32,9 +34,12 @@ if (isset($_SESSION['WVG'])) {
     $wgv = new \core\classes\WebGedVisu($_GET['ged'], $_GET['module']);
 }
 register_shutdown_function(array($wgv, 'session'));
+*/
+
+$wgv = new \core\classes\WebGedVisu($_GET['ged'], $_GET['module']);
 
 if (CACHE) {
-    $gedcom = \core\classes\ObjetCache::getInstance('\core\classes\Gedcom', $wgv->getGedcomFichier());
+    $gedcom = \core\classes\ObjetCache::getInstance('\core\classes\Gedcom', $wgv->getGedcomFichier(), $wgv->getGedcomdate());
 } else {
     $gedcom = new \core\classes\Gedcom($wgv->getGedcomFichier());
 }

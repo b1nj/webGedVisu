@@ -20,7 +20,7 @@ class ObjetCache
      * @param string/int $id identifiant de l'objet
      * @return ObjectCache
      */
-    public static function getInstance ($class, $id)
+    public static function getInstance ($class, $id, $date)
     {
         $strId = (string) rawurlencode(basename($id));
 
@@ -28,8 +28,7 @@ class ObjetCache
         $path = self::cachePath.'/'.basename($class).'/'.$strId.'.obj';
         
         /*Si le fichier de cache est valide*/
-        // if ((int) @filemtime($path) > $_SERVER['REQUEST_TIME'])
-        if (file_exists($path)) {
+        if (file_exists($path) and filemtime($path) >= $date) {
             /*On récupère la version en cache*/
             $object = unserialize(gzuncompress(file_get_contents($path)));
             /*Si on a réussi la désérialisation on retourne l'objet*/

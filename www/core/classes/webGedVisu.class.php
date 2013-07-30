@@ -9,6 +9,7 @@ class WebGedVisu {
     public $module; // TODO provisoire
     protected $gedcomFichier;
     protected $gedcomKey;
+    protected $gedcomDate;
     
 
    /**
@@ -33,6 +34,7 @@ class WebGedVisu {
                 $this->gedcomKey = $gedcomKey;
                 $gedcoms = $this->gedcoms->getGedcoms();
                 $this->gedcomFichier = $gedcoms[$this->gedcomKey];
+                $this->gedcomDate = filemtime($this->gedcomFichier);
             } else {
                 throw new \Exception  ('Le fichier Gedcom n\'existe pas.');
             }
@@ -84,7 +86,10 @@ class WebGedVisu {
     {
         return $this->gedcomKey;
     }
-    
+    public function getGedcomDate()
+    {
+        return $this->gedcomDate;
+    }    
     
     public function session()
     {
