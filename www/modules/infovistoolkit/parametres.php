@@ -4,7 +4,10 @@ $MODULES['infovistoolkit_sunburst'] =
         'type' => 'visualisation',
         'titre' => 'Arbre généalogique ascendant circulaire',
         'description' => 'Arbre généalogique ascendant circulaire',
-        'url' => 'index.php?type=sunburst',
+        'url' => 'index.php',
+        'query' => array(
+            'type' => 'sunburst',
+        ),        
         'module' => 'infovistoolkit'
     );
 $MODULES['infovistoolkit_spacetree'] =    
@@ -12,8 +15,9 @@ $MODULES['infovistoolkit_spacetree'] =
         'type' => 'visualisation',
         'titre' => 'Arbre généalogique ascendant dépliant',
         'description' => 'Arbre généalogique ascendant dépliant',
-        'url' => 'index.php?type=spacetree',
+        'url' => 'index.php',
+        'query' => array(
+            'type' => 'spacetree',
+        ),        
         'module' => 'infovistoolkit'
 );
-
-?>

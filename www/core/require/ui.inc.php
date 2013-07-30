@@ -19,7 +19,7 @@ $module = $wgv->getModule();
         <h1 class="titre"><?php echo TITRE ?></h1>
         <nav>
             <ul>
-                <li><a class="onglet" href="../../">Accueil</a></li>
+                <li><a class="onglet" href="../../?<?php echo $wgv->getUrlParams(); ?>">Accueil</a></li>
                 <li>
                     <a href="#" class="onglet deroulant">Visualisation</a>
                     <form method="get" action="?">
@@ -35,6 +35,7 @@ $module = $wgv->getModule();
                             </p>
                         </fieldset>
                         <p>
+                            <?php echo $wgv->getUrlParams(array(), true); ?>
                             <input type="submit" name="envoyer" value="Visualiser">
                         </p>
                     </form>

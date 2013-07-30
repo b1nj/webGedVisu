@@ -4,7 +4,10 @@ $MODULES['d3_tree'] =
         'type' => 'visualisation',
         'titre' => 'd3 tree',
         'description' => 'Arbre généalogique ascendant',
-        'url' => 'index.php?type=tree',
+        'url' => 'index.php',
+        'query' => array(
+            'type' => 'tree',
+        ),
         'module' => 'd3'
     );
 $MODULES['d3_tree-radial'] =
@@ -12,6 +15,9 @@ $MODULES['d3_tree-radial'] =
         'type' => 'visualisation',
         'titre' => 'd3 tree radial',
         'description' => 'Arbre généalogique ascendant circulaire',
-        'url' => 'index.php?type=tree-radial',
+        'url' => 'index.php',
+        'query' => array(
+            'type' => 'tree-radial',
+        ),        
         'module' => 'd3'
     );

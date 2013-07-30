@@ -19,7 +19,7 @@ head($head);
             <h2><?php echo $visu['titre'] ?></h2>
             <p>
                 <?php echo $visu['description'] ?><br>
-                <a href="../../modules/<?php echo $visu['module'] ?>/<?php echo $visu['url'] ?>">Visualiser</a>
+                <a href="?<?php echo $wgv->getUrlParams(array('module' => $key)); ?>">Visualiser</a>
             </p>
         </article>
     <?php endforeach; ?>

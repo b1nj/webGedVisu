@@ -48,8 +48,10 @@ class WebGedVisu {
     public function setModule($key_module)
     {
     	$key_module = $key_module ? $key_module : DEFAUT_MODULE;
+        if (MODULE != $key_module) {
+            $this->goToModule($key_module);
+        }
         $this->module = $this->modules->getModule($key_module);
-        $this->goToModule($key_module);
     }
     
    /**
@@ -58,7 +60,9 @@ class WebGedVisu {
     public function goToModule($key_module)
     {
         if (MODULE != $key_module) {
-            redirect((!MODULE ? '' : '../../').Modules::REPERTOIRE.'/'.$this->module['module'].'/'.$this->module['url']);            
+            $module = $this->modules->getModule($key_module);
+            $query = isset($module['query']) ? str_replace('&amp;', '&', $this->getUrlParams($module['query'])) : $this->getUrlParams();
+            redirect((!MODULE ? '' : '../../').Modules::REPERTOIRE.'/'.$module['module'].'/'.$module['url'].'?'.$query);            
         }    
     }
 
@@ -90,7 +94,26 @@ class WebGedVisu {
     {
         return $this->gedcomDate;
     }    
-    
+    public function getUrlParams($params = array(), $input = false)
+    {
+        $parametres = array(
+            'ged' => $this->getGedcomKey(),
+        );
+        $parametres = $parametres + $params;
+        $value = '';
+        if ($input) {
+            foreach ($parametres as $key => $parametre) {
+               $value .= '<input type="hidden" value="'.htmlspecialchars($parametre).'" name="'.$key.'">'; 
+            }
+        } else {
+            foreach ($parametres as $key => $parametre) {
+               $value .= $key.'='.urlencode($parametre).'&amp;'; 
+            }
+            $value = substr($value, 0, -5);
+        }
+        return $value;
+    } 
+        
     public function session()
     {
         $_SESSION['WVG'] = $this;
