@@ -26,7 +26,6 @@ $(function() {
             this.element.css('min-height', this.height + 'px').
             wrap('<div id="visualisation_content" />');
 
-
             if (this.options.zoom) {
                 this.element.zoom(this.options.zoomOptions);
 
@@ -56,6 +55,11 @@ $(function() {
                 function() {
                     $li = $(this).parents('li').toggleClass('onglet_actif');
                     $('#page nav li').not($li).removeClass('onglet_actif');
+                }
+            );
+            this.element.on('click',
+                function() {
+                    $('#page nav li').removeClass('onglet_actif');
                 }
             );
         },
