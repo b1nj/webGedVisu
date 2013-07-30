@@ -1,5 +1,5 @@
 $(function() {
-	$.widget( "wgvD3.tree", {   
+	$.widget( "wgvD3.tree", {
         // default options
         options: {
             displayText: 'auto',
@@ -10,7 +10,7 @@ $(function() {
             bottomMargin: 10,
             leftMargin: 100,
         },
-        
+
          // the constructor
         _create: function() {
         	this.view();
@@ -19,44 +19,44 @@ $(function() {
 		_setOption: function(key, value){
 			this.options[key] = value;
 		},
-                		 
+
 		view: function () {
 			var self = this;
-			
+
 		    height = this.element.height();
 		    width = this.element.width();
-		
+
 		    var tree = d3.layout.tree()
 				.size([height - self.options.topMargin - self.options.bottomMargin, width - self.options.leftMargin - self.options.rightMargin ]);
-		
+
 		    var diagonal = d3.svg.diagonal()
 		        .projection(function(d) { return [d.y, d.x]; });
-		
+
 		    // TODO: enlever visualisation
 		    var vis = d3.select("#visualisation").append("svg")
 		        .attr("width", width)
 		        .attr("height", height)
 		    	.append("g")
 		        .attr("transform", "translate(" + self.options.leftMargin + ", " + self.options.topMargin + ")");
-		
+
 		    d3.json("../../cache/js/arbre.json", function(json) {
 				var nodes = tree.nodes(json);
-			
+
 			    var link = vis.selectAll("path.link")
 			        .data(tree.links(nodes))
 					.enter().append("path")
 			        .attr("class", "link")
 			        .attr("d", diagonal);
-			
+
 			    var node = vis.selectAll("g.node")
 			    	.data(nodes)
 			        .enter().append("g")
 			        .attr("class", "node")
 			        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-			
+
 				node.append("circle")
 			    	.attr("r", self.options.circleRayon);
-			
+
 				if (self.options.displayText === true || (self.options.displayText == 'auto' && self.options.widthMinForDisplayText <= width) ) {
 		            node.append("text")
 		                .attr("dx", function(d) { return d.children ? -8 : 8; })
@@ -67,7 +67,7 @@ $(function() {
 		    });
 		}
 	});
-	
+
     $("#visualisation")
         .interface({
             draggable: true,
@@ -81,7 +81,7 @@ $(function() {
                 hValue: "auto",
                 pas: 500,
                 change: function(event, ui) {
-                    $("#visualisation")
+                    ui.element
                         .width(ui.wValue)
                         .height(ui.hValue)
                         .html("")

@@ -1,7 +1,7 @@
 $(function() {
     var labelType, useGradients, nativeTextSupport, animate;
-    
-    
+
+
     (function() {
       var ua = navigator.userAgent,
           iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
@@ -16,15 +16,11 @@ $(function() {
       useGradients = nativeCanvasSupport;
       animate = !(iStuff || !nativeCanvasSupport);
     })();
-    
-    
-    
-    function view(){
-        height = $("#visualisation").height();
-        width = $("#visualisation").width();    
-        //init Spacetree
-        //Create a new ST instance
-        var st = new $jit.ST({
+
+var self2;
+    $.widget( "wgvD3.spacetree", {
+        // default options
+        options: {
             //id of viz container element
             injectInto: 'visualisation',
             //set duration for the animation
@@ -33,15 +29,15 @@ $(function() {
             transition: $jit.Trans.Quart.easeInOut,
             //set distance between node and its children
             levelDistance: 50,
-            width: width,
-            height: height,
+            width: $("#visualisation").width(),
+            height: $("#visualisation").height(),
             //enable panning
             Navigation: {
               enable:true,
               panning:true
             },
             orientation:'bottom',
-    
+
             //set node and edge styles
             //set overridable=true for styling individual
             //nodes or edges
@@ -52,15 +48,12 @@ $(function() {
                 color: '#aaa',
                 overridable: true
             },
-    
+
             Edge: {
                 type: 'bezier',
                 overridable: true
             },
-    
-    
-    
-    
+
             //This method is called on DOM label creation.
             //Use this method to add event handlers and styles to
             //your node.
@@ -68,7 +61,11 @@ $(function() {
                 label.id = node.id;
                 label.innerHTML = node.data.description;
                 label.onclick = function(){
-                	  st.onClick(node.id);
+                    //console.log($.wgvD3.spacetree);
+                    //$.wgvD3.spacetree.prototype.st.onClick(node.id);
+                    //$("#visualisation").spacetree()
+                    // TODO: virer self2
+                    self2.st.onClick(node.id);
                 };
                 //set label styles
                 var style = label.style;
@@ -80,7 +77,7 @@ $(function() {
                 style.textAlign= 'center';
                 style.paddingTop = '3px';
             },
-    
+
             //This method is called right before plotting
             //a node. It's useful for changing an individual node
             //style properties before plotting it.
@@ -105,7 +102,7 @@ $(function() {
                     }
                 }
             },
-    
+
             //This method is called right before plotting
             //an edge. It's useful for changing an individual edge
             //style properties before plotting it.
@@ -121,21 +118,32 @@ $(function() {
                     delete adj.data.$lineWidth;
                 }
             }
-    
-        });
-    
-        //load json data
-        st.loadJSON(json);
-        //compute node positions and layout
-        st.compute();
-        //optional: make a translation of the tree
-        st.geom.translate(new $jit.Complex(-200, 0), "current");
-        //emulate a click on the root node.
-        st.onClick(st.root);
-        //end
-    
-    }
-    
+        },
+        // the constructor
+        _create: function() {
+            this.st = new $jit.ST(this.options);
+            self2 = this;
+            //load json data
+            this.st.loadJSON(json);
+            //compute node positions and layout
+            this.st.compute();
+            //optional: make a translation of the tree
+            this.st.geom.translate(new $jit.Complex(-200, 0), "current");
+            //emulate a click on the root node.
+            this.st.onClick(this.st.root);
+            //end
+        },
+
+        _setOption: function(key, value){
+            this.st.config[key] = value;
+        },
+
+        refresh: function () {
+            this.st.refresh();
+        }
+    });
+
+
     $("#visualisation")
         .interface({
             draggable: true,
@@ -147,11 +155,12 @@ $(function() {
                 hValue: "30",
                 pas: 1,
                 change: function(event, ui) {
-                    $("#visualisation").html("");
-                    view(ui.hValue);
+                    ui.element
+                    .spacetree();
                 }
             }
-        });
-    view();
+        })
+        .spacetree();
+
 
 });

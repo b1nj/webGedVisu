@@ -17,6 +17,68 @@ $(function() {
       animate = !(iStuff || !nativeCanvasSupport);
     })();
 
+    $.widget( "wgvD3.treeSunburst", {
+        // default options
+        options: {
+            //id container for the visualization
+            injectInto: 'visualisation',
+            //Distance between levels
+            levelDistance: 30,
+            width: $("#visualisation").height(),
+            height: $("#visualisation").height(),
+                //enable panning
+                Navigation: {
+                  enable:true,
+                  panning:true,
+                },
+            //Change node and edge styles such as
+            //color, width and dimensions.
+            Node: {
+              overridable: true,
+              //type: useGradients? 'gradient-multipie' : 'multipie'
+            },
+            //Select canvas labels
+            //'HTML', 'SVG' and 'Native' are possible options
+            Label: {
+              type: labelType
+            },
+            //Change styles when hovering and clicking nodes
+            NodeStyles: {
+              enable: true,
+              type: 'Native',
+              stylesClick: {
+                'color': '#33dddd'
+              },
+              stylesHover: {
+                'color': '#dd3333'
+              }
+            },
+            //Add tooltips
+            Tips: {
+              enable: true,
+              onShow: function(tip, node) {
+                var html = "<div class=\"tip-title\">" + node.data.description + "</div>";
+                tip.innerHTML = html;
+              }
+            }
+        },
+
+        // the constructor
+        _create: function() {
+            this.sb = new $jit.Sunburst(this.options);
+            this.sb.loadJSON(json);
+            this.refresh();
+        },
+
+        _setOption: function(key, value){
+            this.sb.config[key] = value;
+        },
+
+        refresh: function () {
+            this.sb.refresh();
+        }
+    });
+
     $("#visualisation")
         .interface({
             draggable: false,
@@ -28,62 +90,11 @@ $(function() {
                 hValue: 30,
                 pas: 5,
                 change: function(event, ui) {
-                    sb.config.levelDistance = ui.hValue;
-                    sb.refresh();
+                    ui.element
+                        .treeSunburst('option', 'levelDistance', ui.hValue)
+                        .treeSunburst('refresh');
                 }
-        }
-    });
-
-    height = $("#visualisation").height();
-    width = $("#visualisation").width();
-    //init Sunburst
-    sb = new $jit.Sunburst({
-        //id container for the visualization
-        injectInto: 'visualisation',
-        //Distance between levels
-        levelDistance: 30,
-        width: width,
-        height: height,
-            //enable panning
-            Navigation: {
-              enable:true,
-              panning:true,
-            },
-        //Change node and edge styles such as
-        //color, width and dimensions.
-        Node: {
-          overridable: true,
-          //type: useGradients? 'gradient-multipie' : 'multipie'
-        },
-        //Select canvas labels
-        //'HTML', 'SVG' and 'Native' are possible options
-        Label: {
-          type: labelType
-        },
-        //Change styles when hovering and clicking nodes
-        NodeStyles: {
-          enable: true,
-          type: 'Native',
-          stylesClick: {
-            'color': '#33dddd'
-          },
-          stylesHover: {
-            'color': '#dd3333'
-          }
-        },
-        //Add tooltips
-        Tips: {
-          enable: true,
-          onShow: function(tip, node) {
-            var html = "<div class=\"tip-title\">" + node.data.description + "</div>";
-            tip.innerHTML = html;
-          }
-        }
-    });
-    //load JSON data.
-    sb.loadJSON(json);
-    //compute positions and plot.
-    sb.refresh();
-    //end
-
+            }
+        })
+        .treeSunburst();
 });
