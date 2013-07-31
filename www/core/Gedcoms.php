@@ -25,15 +25,43 @@ class Gedcoms {
     public function getGedcoms()
     {
         if (!$this->gedcoms) {
-            if (!$gedcoms = glob(ROOT.'/'.self::REPERTOIRE.'/*.'.self::EXTENSION_FICHIER, GLOB_BRACE)) {
+            if (!$files_gedcoms = glob(ROOT.'/'.self::REPERTOIRE.'/*.'.self::EXTENSION_FICHIER, GLOB_BRACE)) {
                 throw new \Exception  ('Aucun fichier gedcom dans le repertoire "ged".');
             }
+            $xml_gedcoms = array();
             if (!file_exists(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS)) {
-                $xmlstr = "<?xml version='1.0' standalone='yes'?>\n<gedcoms></gedcoms>";
+                // Création du fichier xml
+                $xmlstr = "<?xml version='1.0' encoding='UTF-8'?>\n<gedcoms />";
                 $xml = new \SimpleXMLElement($xmlstr);
                 $xml->asXML(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS);
+            } else {
+                $xml = new \SimpleXMLElement(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS, 0, true);
+                // Lecture du xml
+                foreach ($xml->gedcom as $gedcom) {
+                    $xml_gedcoms[(string) $gedcom->file] = $gedcom;
+                }
             }
-            $this->gedcoms = $gedcoms;
+            
+            $is_nouveau_gedcom = false;
+            foreach ($files_gedcoms as $file_gedcom) {
+                if (!array_key_exists(basename($file_gedcom), $xml_gedcoms)) {
+                    // Nouveau fichier
+                    $xml_gedcom = $xml->addChild('gedcom');
+                    $xml_gedcom->addChild('name', basename($file_gedcom));
+                    $xml_gedcom->addChild('file', basename($file_gedcom));
+                    $is_nouveau_gedcom = true;
+                }
+            }
+            if ($is_nouveau_gedcom) {
+                // Modification du fichier
+                // passage par DOMDocument pour formater l'affichage du xml (indentation)
+                $dom = new \DOMDocument(); 
+                $dom->preserveWhiteSpace = false;
+                $dom->formatOutput = true;
+                $dom->loadXML(dom_import_simplexml($xml)->ownerDocument->saveXML()); 
+                $dom->save(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS);
+            }
+            $this->gedcoms = $files_gedcoms;
         }
         return $this->gedcoms;
     }
