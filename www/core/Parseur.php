@@ -1,6 +1,6 @@
 <?php
 
-namespace core\classes;
+namespace WebGedVisu\core;
 
 abstract class Parseur {
 

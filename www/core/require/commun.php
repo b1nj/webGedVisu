@@ -1,10 +1,12 @@
 <?php
-require(ROOT.'/core/require/autoload.php');
+namespace WebGedVisu\core;
+
+require(ROOT.'/core/SplClassLoader.php');
+$loader = new SplClassLoader('WebGedVisu', ROOT);
+$loader->register();
 require(ROOT.'/core/require/functions.php');
 require(ROOT.'/core/require/parametres.php');
 require(ROOT.'/core/require/ui.inc.php');
-// Mettre avant session_start a cause de la mise en session de l'instance Gedcom
-require(ROOT.'/core/classes/webGedVisu.class.php'); 
 
 session_start();
 
@@ -31,15 +33,16 @@ if (isset($_SESSION['WVG'])) {
     $wgv->setGedcom($_GET['ged']);
     $wgv->setModule($_GET['module']);
 } else {
-    $wgv = new \core\classes\WebGedVisu($_GET['ged'], $_GET['module']);
+    $wgv = new \WebGedVisu\core\WebGedVisu($_GET['ged'], $_GET['module']);
 }
 register_shutdown_function(array($wgv, 'session'));
 */
 
-$wgv = new \core\classes\WebGedVisu($_GET['ged'], $_GET['module']);
+
+$wgv = new WebGedVisu($_GET['ged'], $_GET['module']);
 
 if (CACHE) {
-    $gedcom = \core\classes\ObjetCache::getInstance('\core\classes\Gedcom', $wgv->getGedcomFichier(), $wgv->getGedcomdate());
+    $gedcom = ObjetCache::getInstance('\WebGedVisu\core\Gedcom', $wgv->getGedcomFichier(), $wgv->getGedcomdate());
 } else {
-    $gedcom = new \core\classes\Gedcom($wgv->getGedcomFichier());
+    $gedcom = new Gedcom($wgv->getGedcomFichier());
 }

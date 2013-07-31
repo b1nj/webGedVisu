@@ -11,7 +11,7 @@ require ROOT.'/core/require/commun.php';
 
 
 
-$arbre = new modules\d3\Arbre($gedcom);
+$arbre = new WebGedVisu\modules\d3\Arbre($gedcom);
 
 $json = fopen('../../cache/js/arbre.json',"w+");
 fwrite($json, json_encode($arbre->getArbre()));

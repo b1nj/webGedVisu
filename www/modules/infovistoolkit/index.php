@@ -11,7 +11,7 @@ require ROOT.'/core/require/commun.php';
 
 
 
-$arbre = new modules\infoVisToolkit\Arbre($gedcom);
+$arbre = new WebGedVisu\modules\infoVisToolkit\Arbre($gedcom);
 
 $json = fopen('../../cache/js/arbre-sunburst.js',"w+");
 fwrite($json, 'json = '.json_encode($arbre->getArbre()));

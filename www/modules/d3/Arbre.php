@@ -1,7 +1,7 @@
 <?php
-namespace modules\infoVisToolkit;
+namespace WebGedVisu\modules\d3;
  
-class Arbre extends  \core\classes\Arbre {
+class Arbre extends  \WebGedVisu\core\Arbre {
     
     protected function node($identifiant)
     {
@@ -10,18 +10,15 @@ class Arbre extends  \core\classes\Arbre {
         if ($identifiant == $this->deCujus) {
             $individu->setSosa(1);
         }
+        $children = false;
+        if ($individu->familleConception()) {
+            $children =  array();
+        }
         $node = array(
                     'id' => 'node'.$identifiant,
-                    'name' => $individu->sosa(), //$individuGed['_SOSA']
-                    'data' => array (
-                        '$color' => ($individuGed['SEX'] == 'F' ? "#f7b5cb" : "#6bbdef"),
-                        'description' => '<class style="color: red;">'.
-                                          $individu->sosa().'</class><br />'.
-                                          str_replace('/', '', $individu->nom()).
-                                          '<br /> ('.(isset($individuGed['BIRT']['DATE'] ) ? $individuGed['BIRT']['DATE'] : '').'&nbsp;-&nbsp;'.
-                                          (isset($individuGed['DEAT']['DATE'] ) ? $individuGed['DEAT']['DATE'] : '').')'
-                    ),
-                    'children' => array()
+                    'name' => $individu->nom(),
+                    //'name' => $individu->sosa(), 
+                    'children' => $children
                 );
         if ($individu->familleConception()) {
             $famille = $this->gedcom->getfamille($individu->familleConception());

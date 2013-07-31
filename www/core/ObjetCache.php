@@ -1,5 +1,5 @@
 <?php
-namespace core\classes;
+namespace WebGedVisu\core;
 
 /**
  * Cache d'objet dans des fichiers

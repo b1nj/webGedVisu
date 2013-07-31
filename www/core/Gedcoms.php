@@ -1,5 +1,5 @@
 <?php 
-namespace core\classes;
+namespace WebGedVisu\core;
  
 class Gedcoms {
     
@@ -7,6 +7,7 @@ class Gedcoms {
     
     const REPERTOIRE = 'ged';
     const EXTENSION_FICHIER = '{GED,ged}';
+    const NOM_FICHIER_PARAMS = 'gedcoms.xml';
     
 
    /**
@@ -26,6 +27,11 @@ class Gedcoms {
         if (!$this->gedcoms) {
             if (!$gedcoms = glob(ROOT.'/'.self::REPERTOIRE.'/*.'.self::EXTENSION_FICHIER, GLOB_BRACE)) {
                 throw new \Exception  ('Aucun fichier gedcom dans le repertoire "ged".');
+            }
+            if (!file_exists(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS)) {
+                $xmlstr = "<?xml version='1.0' standalone='yes'?>\n<gedcoms></gedcoms>";
+                $xml = new \SimpleXMLElement($xmlstr);
+                $xml->asXML(ROOT.'/'.self::REPERTOIRE.'/.'.self::NOM_FICHIER_PARAMS);
             }
             $this->gedcoms = $gedcoms;
         }

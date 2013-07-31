@@ -1,6 +1,6 @@
 <?php
 
-namespace core\classes\tests\units;
+namespace WebGedVisu\core\tests\units;
 
 require_once '../mageekguy.atoum.phar';
 include_once '../../core/classes/parseur.class.php';
