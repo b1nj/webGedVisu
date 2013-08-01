@@ -1,5 +1,5 @@
 <?php
-namespace WebGedVisu\modules\googleOrgChart;
+namespace WebGedVisu\modules\googleorgchart;
 
 class OrgChart extends \WebGedVisu\core\Gedcom {
     

@@ -1,5 +1,5 @@
 <?php
-namespace WebGedVisu\modules\infoVisToolkit;
+namespace WebGedVisu\modules\infovistoolkit;
  
 class Arbre extends  \WebGedVisu\core\Arbre {
     
