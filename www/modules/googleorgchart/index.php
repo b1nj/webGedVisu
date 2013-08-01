@@ -3,7 +3,7 @@ define('ROOT', dirname(dirname(__DIR__)));
 define('MODULE', 'googleorgchart');
 require ROOT.'/core/require/commun.php';
 
-$orgChart = new WebGedVisu\modules\googleorgchart\orgChart($gedcom);
+$orgChart = new WebGedVisu\modules\googleorgchart\OrgChart($gedcom);
 
 $datas2 = fopen('../../cache/js/orgChart.js',"w+");
 fwrite($datas2, ' orgChart = ['.$orgChart->getOrgChart().'] ');
