@@ -4,7 +4,7 @@ namespace WebGedVisu\core;
 
 abstract class Parseur {
 
-    protected $gedcomFichier = 'ged/gedcom.ged';
+    protected $gedcomFichier = null;
     protected $fichierContenu = array();
     protected $gedcom = array();
     protected $gedcomIndividus = array();

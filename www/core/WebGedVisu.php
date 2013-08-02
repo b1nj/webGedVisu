@@ -4,42 +4,33 @@ namespace WebGedVisu\core;
  
 class WebGedVisu {
     
-    protected $modules;
     protected $gedcoms;
     public $module; // TODO provisoire
     protected $gedcomFichier;
-    protected $gedcomKey;
-    protected $gedcomDate;
+    protected $repertoire;
+    protected $repertoireRealPath;
     
 
    /**
     * Constructeur
     */
-    public function __construct($gedcom = false, $module = false)
+    public function __construct($gedcomFichier = false, $module = false, $repertoire = false)
     {
-        $this->gedcoms = new Gedcoms();
+        //$this->gedcoms = new Gedcoms();
         $this->modules = new Modules();
-        $this->setGedcom($gedcom ? $gedcom : 0); // 0 : Premier gedcom de la liste
+        $this->setGedcomFichier($gedcomFichier); 
+        $this->setRepertoire($repertoire);
         $this->setModule($module ? $module : DEFAUT_MODULE);
     }
-    
+
    /**
     * Défini le fichier Gedcom
     * @param string $gedcom_fichier
     */
-    public function setGedcom($gedcomKey)
+    public function setGedcomFichier($gedcomFichier)
     {
-        if ($gedcomKey !== false and $gedcomKey !== $this->gedcomKey) {            
-            if (array_key_exists($gedcomKey, $this->gedcoms->getGedcoms())) {
-                $this->gedcomKey = $gedcomKey;
-                $gedcoms = $this->gedcoms->getGedcoms();
-                $this->gedcomFichier = $gedcoms[$this->gedcomKey];
-                $this->gedcomDate = filemtime($this->gedcomFichier);
-            } else {
-                throw new \Exception  ('Le fichier Gedcom n\'existe pas.');
-            }
-        }
-    }
+        $this->gedcomFichier = $gedcomFichier;
+    }    
     
    /**
     * Défini le module
@@ -61,12 +52,25 @@ class WebGedVisu {
     {
         if (MODULE != $key_module) {
             $module = $this->modules->getModule($key_module);
-            $query = isset($module['query']) ? str_replace('&amp;', '&', $this->getUrlParams($module['query'])) : $this->getUrlParams();
+            $query = str_replace('&amp;', '&', isset($module['query']) ? $this->getUrlParams($module['query']) : $this->getUrlParams());
             redirect((!MODULE ? '' : '../../').Modules::REPERTOIRE.'/'.$module['module'].'/'.$module['url'].'?'.$query);            
         }    
     }
 
-    // SETTERS //
+   /**
+    * Défini le sous repertoir des fichiers gedcoms
+    * @param string $repertoire
+    */
+    public function setRepertoire($repertoire = false)
+    {
+        $rep = ROOT.'/'.Gedcoms::REPERTOIRE.($repertoire ? '/'.$repertoire : '').'/';             
+        if (file_exists($rep)) {
+            $this->repertoire = $repertoire ? $repertoire : null;
+            $this->repertoireRealPath = $rep;
+        } else {
+            throw new \Exception  ('Le repertoire "'.Gedcoms::REPERTOIRE.($repertoire ? '/'.$repertoire : '').'" n\'existe pas.');
+        }
+    }
 
         
     // GETTERS //
@@ -86,18 +90,20 @@ class WebGedVisu {
     {
         return $this->gedcomFichier;
     }
-    public function getGedcomKey()
+    public function getRepertoire()
     {
-        return $this->gedcomKey;
+        return $this->repertoire;
     }
-    public function getGedcomDate()
+    public function getRepertoireRealPath()
     {
-        return $this->gedcomDate;
-    }    
+        return $this->repertoireRealPath;
+    }     
+        
     public function getUrlParams($params = array(), $input = false)
     {
         $parametres = array(
-            'ged' => $this->getGedcomKey(),
+            'ged' => $this->getGedcomFichier(),
+            'rep' => $this->getRepertoire(),
         );
         $parametres = $parametres + $params;
         $value = '';
@@ -114,8 +120,4 @@ class WebGedVisu {
         return $value;
     } 
         
-    public function session()
-    {
-        $_SESSION['WVG'] = $this;
-    }
 }

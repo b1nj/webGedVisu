@@ -23,26 +23,43 @@ if (!defined('MODULE')) {
 $_GET['ged'] = isset($_GET['ged']) ? $_GET['ged'] : false;
 // Redirection vers le module selectionné
 $_GET['module'] = isset($_GET['module']) ? $_GET['module'] : MODULE;
+// Sous repertoire des fichiers gedcoms
+$_GET['rep'] = isset($_GET['rep']) ? $_GET['rep'] : false;
 
-/*
-// Désactivation de la session, pas vraiment utile et pose des problèmes de mise a jours des fichiers gedcoms
-// A controler utiliter plus tard 
-// Instanciation de la class WebGedVisu et mise en session de l'objet $wgv
-if (isset($_SESSION['WVG'])) {
-    $wgv = $_SESSION['WVG'];
-    $wgv->setGedcom($_GET['ged']);
-    $wgv->setModule($_GET['module']);
-} else {
-    $wgv = new \WebGedVisu\core\WebGedVisu($_GET['ged'], $_GET['module']);
-}
-register_shutdown_function(array($wgv, 'session'));
-*/
-
-
-$wgv = new WebGedVisu($_GET['ged'], $_GET['module']);
-
-if (CACHE) {
-    $gedcom = ObjetCache::getInstance('\WebGedVisu\core\Gedcom', $wgv->getGedcomFichier(), $wgv->getGedcomdate());
-} else {
-    $gedcom = new Gedcom($wgv->getGedcomFichier());
+try {
+    $wgv = new WebGedVisu($_GET['ged'], $_GET['module'], $_GET['rep']);
+    $fichiers = Gedcoms::getFichiers($wgv->getRepertoireRealPath());
+    if (!$_GET['ged']) {
+        $wgv->setGedcomFichier(basename($fichiers[0]));
+    }
+    $params = new GedcomsParametres($wgv->getRepertoireRealPath().Gedcoms::NOM_FICHIER_PARAMS);
+    $params->load();
+    
+    $gedcoms = new Gedcoms();
+    foreach ($fichiers as $fichier) {
+        if (!$params->existGedcom($fichier)) {
+            $params->addGedcom($fichier);
+        }
+        if ($wgv->getGedcomFichier() == basename($fichier)) {
+            if (CACHE) {
+                $ged = ObjetCache::getInstance('\WebGedVisu\core\Gedcom', $fichier, filemtime($fichier));
+            } else {
+                $ged = new Gedcom($fichier);
+            }
+            $ged->setParametres($params->getGedcom($fichier));
+            $gedcom = $ged;
+        } else {
+            $ged = $ged = new Gedcom($fichier, $params->getGedcom($fichier), false);
+        }
+        $gedcoms->addGedcom(basename($fichier), $ged);
+    }
+    $params->save();
+    
+    if (empty($gedcom)) {
+        throw new \Exception  ('Le fichier Gedcom "'.$wgv->getGedcomFichier().'" n\'existe pas.');
+    }
+    
+} catch (\Exception $e) {
+    echo 'Erreur : ',  $e->getMessage(), "\n";
+    exit();
 }

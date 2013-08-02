@@ -3,15 +3,22 @@ namespace WebGedVisu\core;
 
 class Gedcom extends Parseur {
 
+    public $name = null;
+    
     /**
     * Constructeur de Gedcom
     */
-	public function __construct($file=false)
+	public function __construct($file = false, $parametres = false, $parse = true)
 	{
         if ($file) {
             $this->gedcomFichier = $file;
         }
-        $this->parse();
+        if ($parametres) {
+            $this->setParametres($parametres);
+        }
+        if ($parse) {
+            $this->parse();
+        }
 	}
 
     /**
@@ -28,6 +35,20 @@ class Gedcom extends Parseur {
         $this->gedcomIndividus = $donnees->getGedcomIndividus();
         $this->gedcomFamilles = $donnees->getGedcomFamilles();  
     }
+    
+    /**
+     * Méthode assignant les valeurs des paarmetres spécifiées aux attributs correspondant
+     * @param array $parametres
+     * @return void
+     */
+    public function setParametres($parametres)
+    {
+        foreach ($parametres as $key => $parametre) {
+            if (in_array($key, array('name')))  {
+                $this->$key = (string) $parametre;
+            }
+        }
+    }    
     	
     // GETTERS //
     public function getGedcomFichier()

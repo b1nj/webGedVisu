@@ -1,6 +1,6 @@
 <?php
 function head($head=false) {
-GLOBAL $wgv;
+GLOBAL $wgv, $gedcoms;
 $module = $wgv->getModule();
 ?>
 <!DOCTYPE html>
@@ -47,10 +47,11 @@ $module = $wgv->getModule();
                             <legend>Général</legend>
                             <p>
                                 <label for="ged">Fichier Gedcom</label>
+                                <?php echo $wgv->getUrlParams(array(), true); ?>
                                 <!--  onchange="submit()" -->
                                 <select id="ged" name="ged" >
-                                    <?php foreach ($wgv->getGedcoms()->getGedcoms() as $key => $fichier) : ?>
-                                        <option value="<?php echo $key ?>" <?php echo ($wgv->getGedcomKey() == $key ? 'selected="selected"' : '') ?>><?php echo basename($fichier) ?></option>
+                                    <?php foreach ($gedcoms as $fichier => $gedcom) : ?>
+                                        <option value="<?php echo $fichier ?>" <?php echo ($wgv->getGedcomFichier() == $fichier ? 'selected="selected"' : '') ?>><?php echo $gedcom->name ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </p>
