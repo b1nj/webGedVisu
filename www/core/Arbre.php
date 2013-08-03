@@ -1,12 +1,12 @@
-<?php 
+<?php
 namespace WebGedVisu\core;
- 
+
 class Arbre {
     protected $deCujus;
-    
+
     protected $arbre = array();
     protected $gedcom;
-	
+
 
    /**
     * Constructeur de Arbre
@@ -15,15 +15,16 @@ class Arbre {
 	{
 		if ($deCujus) {
 		    $this->deCujus = $deCujus;
-		}
-        else {
+        } elseif ($gedcom->deCujus) {
+            $this->deCujus = $gedcom->deCujus;
+		} else {
             $individus = $gedcom->getGedcomIndividus();
             $this->deCujus =  key($individus);
         }
         $this->gedcom = $gedcom;
         $this->creerArbre();
 	}
-    
+
    /**
     * Constructrion de l'arbre
     */
@@ -31,7 +32,7 @@ class Arbre {
 	{
 		$this->arbre = $this->node($this->deCujus);
 	}
-    
+
 	/**
 	 * Récupère les individus sous forme d'arbre
 	 * $identifiant identifiant de l'individu
@@ -49,10 +50,10 @@ class Arbre {
                 $node[$identifiant][] = $this->node($famille->pere());
             if ($famille->mere())
                 $node[$identifiant][] = $this->node($famille->mere());
-        }        
+        }
         return $node;
 	}
-    
+
     // GETTERS //
     public function getArbre()
     {
