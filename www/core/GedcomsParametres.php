@@ -97,6 +97,10 @@ class GedcomsParametres {
     }
 
     // GETTERS //
+    public function getXml()
+    {
+        return $this->xml;
+    }
     public function getGedcoms()
     {
         return $this->gedcoms;

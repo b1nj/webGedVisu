@@ -87,3 +87,19 @@ function foot($script=false) { ?>
 </html>
 <?php
 }
+
+function formPassword($message=false) { ?>
+
+    <form action="" method="post" class="password">
+        <?php if (!empty($message)) : ?>
+            <p class="attention"><?php echo $message ?></p>
+        <?php endif ?>
+        <p>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password">
+            <input type="submit" name="submit" value="Connexion">
+        </p>
+    </form>
+<?php
+}
+

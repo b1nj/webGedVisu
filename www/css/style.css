@@ -132,4 +132,10 @@ header#page {
 #visualisation_content.draggable {
     overflow: hidden;
 }
-
+.password {
+    margin-top: 65px;
+}
+.attention {
+    color: red;
+    font-weight: bold;
+}

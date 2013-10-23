@@ -63,3 +63,53 @@ try {
     echo 'Erreur : ',  $e->getMessage(), "\n";
     exit();
 }
+
+/*****************************************************************
+* Autentification
+******************************************************************/
+
+$authentification = false;
+$message = '';
+// authentification spécifique à un répertoire
+if (isset($params->getXml()->password)) {
+    $authentification = true;
+    if (isset($_POST['password'])) {
+        if ($_POST['password'] == $params->getXml()->password) {
+            $authentification = false;
+            $_SESSION['acces']['repertoire'][$wgv->getRepertoire()] = true;
+        } else {
+            $message = 'Erreur, le mot de passe n\'est pas valide';
+        }
+    } elseif(!empty($_SESSION['acces']['repertoire'][$wgv->getRepertoire()])) {
+        $authentification = false;
+    }    
+}
+
+// authentification spécifique à un fichier
+if (isset($params->getGedcom(basename($wgv->getGedcomFichier()))->password)) {
+    $authentification = true;
+    if (isset($_POST['password'])) {
+        if ($_POST['password'] == $params->getGedcom(basename($wgv->getGedcomFichier()))->password) {
+            $authentification = false;
+            $_SESSION['acces']['fichier'][$wgv->getGedcomFichier()] = true;
+        } else {
+            $message = 'Erreur, le mot de passe n\'est pas valide';
+        }
+    } elseif(!empty($_SESSION['acces']['fichier'][$wgv->getGedcomFichier()])) {
+        $authentification = false;
+    }
+
+}
+if ($authentification) {
+    head();
+    formPassword($message);
+    $script = '
+        <script type="text/javascript">
+            $(function() {
+                $( "#visualisation" ).interface();
+            });
+        </script>
+    ';    
+    foot($script);
+    exit();
+}
