@@ -17,3 +17,6 @@
     .accueil .row {
         display: table-row;
     }
+    .accueil img {
+        width: 100%;
+    }
