@@ -1,13 +1,13 @@
-<?php 
+<?php
 namespace WebGedVisu\core;
- 
+
 class GedcomsParametres {
-    
+
     protected $fichier_xml;
     protected $gedcoms = array();
     protected $xml = null;
     protected $is_nouveau_gedcom;
-    
+
    /**
     * Constructeur
     * @param string chemin absolue du fichier
@@ -16,7 +16,7 @@ class GedcomsParametres {
     {
         $this->fichier_xml = $fichier_xml;
     }
-    
+
    /**
     * Chargement du fichier xml
     * @param bool creation du fichier s'il n'existe pas
@@ -34,7 +34,7 @@ class GedcomsParametres {
             }
         }
     }
-    
+
    /**
     * Sauvegarde dans le fichier xml
     * @return bool
@@ -49,7 +49,7 @@ class GedcomsParametres {
             return true;
         }
         // passage par DOMDocument pour formater l'affichage du xml (indentation)
-        $dom = new \DOMDocument(); 
+        $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML(dom_import_simplexml($this->xml)->ownerDocument->saveXML());
@@ -58,8 +58,8 @@ class GedcomsParametres {
         } else {
             return false;
         }
-    }    
-    
+    }
+
    /**
     * Création du fichier xml
     */
@@ -68,8 +68,8 @@ class GedcomsParametres {
         $xmlstr = "<?xml version='1.0' encoding='UTF-8'?>\n<gedcoms />";
         $this->xml = new \SimpleXMLElement($xmlstr);
         $this->is_nouveau_gedcom = true;
-    }  
-    
+    }
+
    /**
     * Ajout d'un gedcom dans le fichier
     */
@@ -77,16 +77,17 @@ class GedcomsParametres {
     {
         if ($this->xml === null) {
             return false;
-        }        
+        }
         if (!$this->existGedcom($file_gedcom)) {
             // Nouveau fichier
             $xml_gedcom = $this->xml->addChild('gedcom');
             $xml_gedcom->addChild('name', basename($file_gedcom));
             $xml_gedcom->addChild('file', basename($file_gedcom));
+            $this->gedcoms[basename($file_gedcom)] = $xml_gedcom;
             $this->is_nouveau_gedcom = true;
         }
     }
-        
+
     /**
     * vérifie l'existence d'un gedcom dans le fichier
     */
@@ -94,17 +95,17 @@ class GedcomsParametres {
     {
         return array_key_exists(basename($file_gedcom), $this->gedcoms);
     }
-    
+
     // GETTERS //
     public function getGedcoms()
     {
         return $this->gedcoms;
-    } 
+    }
     public function getGedcom($file_gedcom)
     {
-        if (!$this->existGedcom($file_gedcom)) {    
+        if (!$this->existGedcom($file_gedcom)) {
             return false;
         }
         return $this->gedcoms[basename($file_gedcom)];
-    }  
+    }
 }

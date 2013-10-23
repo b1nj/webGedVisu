@@ -34,7 +34,7 @@ try {
     }
     $params = new GedcomsParametres($wgv->getRepertoireRealPath().Gedcoms::NOM_FICHIER_PARAMS);
     $params->load();
-    
+
     $gedcoms = new Gedcoms();
     foreach ($fichiers as $fichier) {
         if (!$params->existGedcom($fichier)) {
@@ -49,16 +49,16 @@ try {
             $ged->setParametres($params->getGedcom($fichier));
             $gedcom = $ged;
         } else {
-            $ged = $ged = new Gedcom($fichier, $params->getGedcom($fichier), false);
+            $ged = new Gedcom($fichier, $params->getGedcom($fichier), false);
         }
         $gedcoms->addGedcom(basename($fichier), $ged);
     }
     $params->save();
-    
+
     if (empty($gedcom)) {
         throw new \Exception  ('Le fichier Gedcom "'.$wgv->getGedcomFichier().'" n\'existe pas.');
     }
-    
+
 } catch (\Exception $e) {
     echo 'Erreur : ',  $e->getMessage(), "\n";
     exit();
