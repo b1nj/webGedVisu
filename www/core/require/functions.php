@@ -24,3 +24,16 @@ function redirect($chemin)
     header("location: ".$chemin);
     exit();
 }
+
+/**
+* Retourne un nom de fichier lisible 
+*/
+function humanFormatFileName($fichier)
+{
+    $file_array = explode('.', $fichier);
+    $extension_key = count($file_array) - 1;
+    $nom = basename($fichier, '.'.$file_array[$extension_key]);
+    $nom = str_replace(array('-', '_'), ' ', $nom);
+    return $nom;
+}
+

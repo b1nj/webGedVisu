@@ -81,7 +81,7 @@ class GedcomsParametres {
         if (!$this->existGedcom($file_gedcom)) {
             // Nouveau fichier
             $xml_gedcom = $this->xml->addChild('gedcom');
-            $xml_gedcom->addChild('name', basename($file_gedcom));
+            $xml_gedcom->addChild('name', humanFormatFileName(basename($file_gedcom)));
             $xml_gedcom->addChild('file', basename($file_gedcom));
             $this->gedcoms[basename($file_gedcom)] = $xml_gedcom;
             $this->is_nouveau_gedcom = true;
