@@ -15,7 +15,7 @@ class Gedcoms implements \Iterator, \Countable, \ArrayAccess {
     public function __construct($gedcoms = null)
     {
         if (null !== $gedcoms) {
-            $this->$gedcoms = $gedcoms;
+            $this->gedcoms = $gedcoms;
         }
     }
 
